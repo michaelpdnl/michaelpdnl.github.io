@@ -613,7 +613,7 @@ button {
 }
 
 .hero-intro {
-  text-align: left;
+  text-align: justify;
   max-width: 42rem;
 }
 
@@ -768,6 +768,7 @@ button {
 
 .detail-body {
   max-width: 46rem;
+  text-align: justify;
 }
 
 /* ---- image carousel (project screenshots) ------------------------------- */
