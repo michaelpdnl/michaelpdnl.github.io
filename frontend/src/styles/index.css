@@ -234,6 +234,42 @@ button {
   opacity: 0.8;
 }
 
+/* Two-part nav item: label link + caret toggle (My Projects) */
+
+.nav-duo {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-s);
+}
+
+.nav-duo .nav-link {
+  padding-right: 0.2rem;
+}
+
+.nav-duo .nav-link:hover,
+.nav-duo .nav-link.active {
+  background: transparent;
+}
+
+.nav-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 2.1rem;
+  margin-right: 0.15rem;
+  border-radius: var(--radius-s);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.nav-caret:hover,
+.nav-caret[aria-expanded='true'] {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
 /* Projects dropdown */
 
 .dropdown {
@@ -386,6 +422,37 @@ button {
 }
 
 .drawer-link.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Drawer sub-item: label link + caret toggle (My Projects) */
+
+.drawer-sub {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-s);
+}
+
+.drawer-sub .drawer-link {
+  flex: 1;
+  min-width: 0;
+  justify-content: flex-start;
+}
+
+.drawer-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 0 1rem;
+  border-radius: var(--radius-s);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.drawer-caret:hover,
+.drawer-caret[aria-expanded='true'] {
   color: var(--accent);
   background: var(--accent-soft);
 }

@@ -95,15 +95,25 @@ export function Header({ content }: HeaderProps) {
                 onMouseEnter={() => setDropOpen(true)}
                 onMouseLeave={() => setDropOpen(false)}
               >
-                <button
-                  type="button"
-                  className={`nav-link nav-btn${dropOpen || onProjects ? ' active' : ''}`}
-                  aria-haspopup="menu"
-                  aria-expanded={dropOpen}
-                  onClick={() => setDropOpen((v) => !v)}
-                >
-                  {t['nav.projects']} <span className="caret" aria-hidden="true">▾</span>
-                </button>
+                <span className="nav-duo">
+                  <Link
+                    to="/projects"
+                    className={`nav-link${onProjects ? ' active' : ''}`}
+                    aria-current={onProjects ? 'page' : undefined}
+                  >
+                    {t['nav.projects']}
+                  </Link>
+                  <button
+                    type="button"
+                    className="nav-caret"
+                    aria-haspopup="menu"
+                    aria-expanded={dropOpen}
+                    aria-label={t['nav.menuProjects']}
+                    onClick={() => setDropOpen((v) => !v)}
+                  >
+                    <span className="caret" aria-hidden="true">▾</span>
+                  </button>
+                </span>
                 {dropOpen && (
                   <ul className="dropdown-menu" role="menu">
                     {projects.map((project) => (
@@ -163,14 +173,21 @@ export function Header({ content }: HeaderProps) {
                 {t['nav.home']}
               </NavLink>
             </li>
-            <li>
+            <li className="drawer-sub">
+              <NavLink
+                to="/projects"
+                className={({ isActive }) => (isActive ? 'drawer-link active' : 'drawer-link')}
+              >
+                {t['nav.projects']}
+              </NavLink>
               <button
                 type="button"
-                className="drawer-sub-toggle"
+                className="drawer-caret"
                 aria-expanded={mobileProjOpen}
+                aria-label={t['nav.menuProjects']}
                 onClick={() => setMobileProjOpen((v) => !v)}
               >
-                {t['nav.projects']} <span className="caret" aria-hidden="true">{mobileProjOpen ? '▴' : '▾'}</span>
+                <span className="caret" aria-hidden="true">{mobileProjOpen ? '▴' : '▾'}</span>
               </button>
               {mobileProjOpen && (
                 <ul className="drawer-sublist">
