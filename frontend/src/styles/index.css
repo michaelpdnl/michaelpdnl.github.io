@@ -275,11 +275,15 @@ button {
 
 .dropdown {
   position: relative;
+  /* Transparent hover "bridge" below the nav item: without it, the gap
+     between the button and the dropdown menu is dead space — moving the
+     mouse across it fires mouseleave and closes the menu too fast. */
+  padding-bottom: 6px;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   min-width: 230px;
   margin: 0;
