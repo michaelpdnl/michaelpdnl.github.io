@@ -1,11 +1,11 @@
 # michaelpdnl.github.io
 
-Personal website of Michael Pdnl — **Home**, **My Projects** and **Blog**, in
-**English and 中文**, built as a fully static site and hosted for free on
-GitHub Pages.
+Personal website of LUO Yuanhao — **Home**, **My Projects** and **Blog** — a fully static
+React + Vite site hosted for free on GitHub Pages. The UI is bilingual
+**EN / 中文** (default language: English).
 
-> **Status:** scaffolded v1. Seed content is included; several personal assets
-> still need to be added (see [Before going live](#before-going-live)).
+> **Status:** content is published from `main`; GitHub Actions builds and
+> deploys automatically. 
 
 Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
 
@@ -15,13 +15,31 @@ Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
 
 ---
 
+## What's on the site
+
+- **Home** — profile photo, name/tagline, Markdown intro, **Download CV** button.
+- **My Projects** — overview grid of project cards → detail pages with
+  description, tech/tags, demo/source links and a **screenshot carousel**
+  (arrows, dots, swipe) driven by each project's `screenshots:` list.
+- **Blog** — post list (newest first) → article pages with rendered Markdown,
+  dates and tags.
+- **Navigation** — desktop: clicking the "My Projects" label opens `/projects`;
+  a ▾ caret (or hover) shows the per-project dropdown plus "All projects".
+  Mobile (< 768 px): hamburger → full-height drawer; "My Projects" expands as
+  an accordion. The active route is highlighted.
+- **Theme** — light/dark follows the OS; a manual toggle persists the choice.
+- **Language** — EN ⇄ 中文 toggle; default is English and an explicit choice
+  persists. Missing 中文 content falls back to English.
+- **Robustness** — friendly 404 page; deep links work on GitHub Pages via a
+  `404.html` copy of the app; per-page titles/meta for SEO basics.
+
 ## Repository map
 
 ```
 ├── content/                    ← the data layer (edit this, not the code)
-│   ├── profile/                site.en.md · site.zh.md · photo.jpg · cv.pdf
-│   ├── projects/en|zh/         project Markdown (slug.md per locale)
-│   ├── posts/en|zh/            blog post Markdown (slug.md per locale)
+│   ├── profile/                site.en.md · photo.jpg · cv.pdf
+│   ├── projects/en|zh/         project Markdown (<slug>.md per locale)
+│   ├── posts/en|zh/            blog post Markdown (<slug>.md per locale)
 │   └── assets/                 images, served at /assets/...
 ├── frontend/                   React + Vite + TypeScript SPA
 ├── .github/workflows/deploy.yml  push to main → build → GitHub Pages
@@ -29,7 +47,9 @@ Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
 ```
 
 **Rule of thumb:** everyday publishing only touches `content/`. Adding a
-Markdown file + `git push` republishes the site (~1 min).
+Markdown file + `git push` republishes the site (~1 min). 中文 folders are
+optional per item — if a translation file is missing, the English version is
+shown.
 
 ## Local development
 
@@ -52,7 +72,7 @@ npm run preview    # serve the production build locally
 
 ## How publishing works
 
-1. Write/edit bilingual Markdown under `content/` (see `docs/AUTHORING.md`).
+1. Write/edit Markdown under `content/` (see `docs/AUTHORING.md`).
 2. `git add` → `git commit` → `git push origin main`.
 3. GitHub Actions runs `.github/workflows/deploy.yml`: `npm ci` →
    `npm run build` → `actions/deploy-pages`. The site updates in ~1 minute.
@@ -68,7 +88,11 @@ Content assets are bridged into the site by a small Vite plugin
 | `content/profile/photo.jpg` | `/photo.jpg`    | home page profile photo         |
 | `content/profile/cv.pdf`  | `/cv.pdf`        | the **Download CV** button      |
 
-Reference covers in frontmatter exactly as served, e.g. `cover: /assets/posts/my-thought.webp`.
+Reference covers/screenshots in frontmatter exactly as served, e.g.
+`cover: /assets/posts/my-thought.webp`. `screenshots:` entries are rendered as
+a carousel on the project's detail page (two or more images show navigation).
+Keep slugs and asset paths free of spaces (two current projects still use
+spaces from early drafts — works, but hyphenated names are preferred).
 
 ## SPA deep links on GitHub Pages
 
@@ -79,17 +103,6 @@ URL, and the right page renders in place. No redirect hop needed. Content
 bundles and hashed assets are kept apart (`dist/assets` = your content,
 `dist/static` = Vite's hashed CSS/JS) so the two never collide.
 
-## Before going live
-
-Owner assets still needed (all marked with TODO in the seed files):
-
-- [ ] `content/profile/photo.jpg` — profile photo (keep the filename).
-- [ ] `content/profile/cv.pdf` — current CV (keep the filename).
-- [ ] Edit `name` / `tagline` / intro in `content/profile/site.en.md` & `site.zh.md`.
-- [ ] Replace seed project `weather-glass` and seed post `welcome` with real content.
-- [ ] One-time GitHub settings: repo **Settings → Pages → Source: GitHub Actions**
-      (the remote already points at `michaelpdnl.github.io`).
-
 ## Notes vs. the design docs (implemented deltas)
 
 - The docs sketched copying `404.html` over `index.html` in the workflow; the
@@ -97,5 +110,8 @@ Owner assets still needed (all marked with TODO in the seed files):
   built app — same idea, no shell `cp`, works locally too.
 - The docs left content *image* delivery unspecified; the plugin serves/copies
   them per the table above (Markdown is still inlined into the bundle).
-- Tech stack is exactly as documented: React 18 + TypeScript + Vite,
-  react-router, marked + DOMPurify, gray-matter, plain CSS custom properties.
+- Frontmatter is parsed with the browser-safe `yaml` package (gray-matter was
+  dropped because it needs Node's `Buffer`, which crashed the site in browsers).
+- Default language is English and never auto-selected from the browser locale.
+- Tech stack: React 18 + TypeScript + Vite, react-router, marked + DOMPurify,
+  `yaml` for frontmatter, plain CSS custom properties.
