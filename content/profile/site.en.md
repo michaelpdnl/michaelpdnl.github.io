@@ -1,13 +1,11 @@
 ---
-name: "Michael Pdnl"
-tagline: "Engineer · Maker · 平凡记录者"
-email: hello@michaelpdnl.github.io
+name: "LUO Yuanhao"
+tagline: "A learner, a creator, a defender of his ideas"
+email: michaelpdnl@gmail.com
 github: https://github.com/michaelpdnl
 ---
 
-Hi, I'm Michael. I like building small tools, learning by making, and writing
-down short thoughts along the way. This site is where I keep my projects and
-my daily notes — in English and 中文.
+Mr. Luo earned a bachelor’s degree in Accounting (University Outstanding Graduate, 2024 University Outstanding Bachelor’s Dissertation) from Shanghai University of Finance and Economics, studied as a PhD student in Accounting at Shanghai Jiao Tong University for one semester, and is currently pursuing a MSc in Computer Science at The University of Hong Kong. He is fond of technology, finance, and art, and has been constantly exploring ways to bring them together.
 
 <!-- TODO(owner): replace this intro with your real introduction. Drop your
      photo at content/profile/photo.jpg and your CV at content/profile/cv.pdf
