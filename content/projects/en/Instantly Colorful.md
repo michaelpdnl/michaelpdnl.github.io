@@ -7,7 +7,7 @@ tech: [Street photography, art]
 #   demo: https://example.com/wglass
 #   github: https://github.com/michaelpdnl/weather-glass
 featured: true
-date: 2026-08-01
+date: 2026-08-02
 screenshots:
   - /assets/projects/Instantly Colorful/1.jpg
   - /assets/projects/Instantly Colorful/2.jpg
