@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+.npm-cache/
+
+# build output
+dist/
+
+# logs / os noise
+*.log
+.DS_Store
+Thumbs.db
+
+# editor / tooling
+.vscode/
+.idea/
+.vite/

@@ -52,6 +52,7 @@ michaelpdnl.github.io/
 │   │   ├── cv.pdf                  #   CV for the Download button
 │   │   ├── site.en.md              #   name, tagline, intro, socials (EN)
 │   │   └── site.zh.md              #   same fields, 中文
+│   ├── assets/                     #   images → served at /assets/…
 │   ├── projects/
 │   │   ├── en/
 │   │   │   ├── <slug>.md
@@ -106,7 +107,11 @@ michaelpdnl.github.io/
 - Slug = filename minus `.md`. EN and ZH files for one item share the slug.
 - Frontmatter (YAML) carries metadata; the Markdown body is the content.
 - EN is canonical; missing ZH files fall back to EN at read time.
-- Assets (covers/screenshots) live under `content/assets/` or next to content.
+- Binary assets live under `content/assets/` (covers/screenshots; served at
+  `/assets/…`), while the profile `photo.jpg` / `cv.pdf` stay in `content/profile/` and
+  are served at `/photo.jpg` / `/cv.pdf`. The frontend Vite plugin
+  (`frontend/vite/content-plugin.ts`) serves these in dev and copies them into `dist/`
+  at build.
 
 ### 4.2 Blog post — `content/posts/en/<slug>.md`
 
@@ -224,7 +229,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: npm, cache-dependency-path: frontend/package-lock.json }
       - run: npm ci && npm run build   # working-directory: frontend
-      - run: cp frontend/dist/404.html frontend/dist/index.html  # SPA deep-link fallback
+        # The Vite "content-assets" plugin also copies content assets into
+        # dist/ and emits dist/404.html (a copy of index.html) as the SPA
+        # deep-link fallback for GitHub Pages.
       - uses: actions/upload-pages-artifact@v3
         with: { path: frontend/dist }
   deploy:
@@ -243,9 +250,10 @@ Pages settings (done once on github.com):
 2. Environment `github-pages` is created automatically by the workflow.
 
 > **SPA deep-link note:** GitHub Pages serves no `index.html` for `/projects/x` on hard
-> reload. The classic fix (used above): copy a minimal `404.html` that redirects to
-> `/?path=<location>` so the SPA router restores the route. (Alternative: hash routing —
-> rejected because clean URLs are preferable.)
+> reload, so the build emits `dist/404.html` as a full copy of the built app — Pages
+> serves that file for unknown paths, the SPA boots, and react-router renders the real
+> route in place (no redirect hop or `?path=` dance; the status code is 404, the content
+> is right). (Alternative: hash routing — rejected because clean URLs are preferable.)
 
 ## 7. Data flow summary
 

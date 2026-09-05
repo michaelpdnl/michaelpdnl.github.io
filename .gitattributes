@@ -1,0 +1,11 @@
+# Normalize line endings for text files; keep PDFs binary
+* text=auto eol=lf
+*.pdf -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.webp -text
+*.avif -text
+*.gif -text
+*.svg -text
+*.ico -text

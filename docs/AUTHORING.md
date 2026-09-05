@@ -28,6 +28,7 @@ A GitHub Actions workflow builds the site and GitHub Pages serves it within ~1 m
 
 ```
 content/profile/    site.en.md · site.zh.md · photo.jpg · cv.pdf
+content/assets/     images (covers/screenshots) → served at /assets/...
 content/posts/en/   blog posts — English        <slug>.md
 content/posts/zh/   blog posts — 中文           <slug>.md
 content/projects/en/ projects — English         <slug>.md
@@ -35,6 +36,11 @@ content/projects/zh/ projects — 中文            <slug>.md
 frontend/           the React app — do not touch for everyday publishing
 docs/               requirements & this guide
 ```
+
+The frontend build serves these automatically: files under `content/assets/`
+are published at `/assets/…`; `content/profile/photo.jpg` and `cv.pdf` are
+published at `/photo.jpg` and `/cv.pdf` (the Home page and Download CV button
+point there). Just keep the filenames, and everything keeps working.
 
 **Rule of thumb for everyday publishing:** you only ever create/edit files under
 `content/`. Code changes are not needed to post.
