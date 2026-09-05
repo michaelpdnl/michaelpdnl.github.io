@@ -427,33 +427,9 @@ button {
   background: var(--accent-soft);
 }
 
-/* Drawer sub-item: label link + caret toggle (My Projects) */
+/* Drawer sub-item open state (My Projects accordion) */
 
-.drawer-sub {
-  display: flex;
-  align-items: center;
-  border-radius: var(--radius-s);
-}
-
-.drawer-sub .drawer-link {
-  flex: 1;
-  min-width: 0;
-  justify-content: flex-start;
-}
-
-.drawer-caret {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  padding: 0 1rem;
-  border-radius: var(--radius-s);
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.drawer-caret:hover,
-.drawer-caret[aria-expanded='true'] {
+.drawer-sub-toggle.open {
   color: var(--accent);
   background: var(--accent-soft);
 }

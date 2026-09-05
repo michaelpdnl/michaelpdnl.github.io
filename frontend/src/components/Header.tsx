@@ -173,24 +173,19 @@ export function Header({ content }: HeaderProps) {
                 {t['nav.home']}
               </NavLink>
             </li>
-            <li className="drawer-sub">
-              <NavLink
-                to="/projects"
-                className={({ isActive }) => (isActive ? 'drawer-link active' : 'drawer-link')}
-              >
-                {t['nav.projects']}
-              </NavLink>
+            <li>
               <button
                 type="button"
-                className="drawer-caret"
+                className={`drawer-sub-toggle${mobileProjOpen ? ' open' : ''}`}
                 aria-expanded={mobileProjOpen}
-                aria-label={t['nav.menuProjects']}
+                aria-controls="drawer-projects"
                 onClick={() => setMobileProjOpen((v) => !v)}
               >
+                {t['nav.projects']}{' '}
                 <span className="caret" aria-hidden="true">{mobileProjOpen ? '▴' : '▾'}</span>
               </button>
               {mobileProjOpen && (
-                <ul className="drawer-sublist">
+                <ul id="drawer-projects" className="drawer-sublist">
                   {projects.map((project) => (
                     <li key={project.slug}>
                       <Link to={`/projects/${project.slug}`}>{project.title}</Link>
