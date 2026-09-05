@@ -14,7 +14,7 @@ export function Footer({ content }: { content: SiteContent }) {
           © {year} {name}
         </p>
         {github && (
-          <a className="footer-link" href={github} target="_blank" rel="noopener noreferrer">
+          <a className="footer-link" href={"https://github.com/michaelpdnl/michaelpdnl.github.io"} target="_blank" rel="noopener noreferrer">
             {t['footer.github']}
           </a>
         )}

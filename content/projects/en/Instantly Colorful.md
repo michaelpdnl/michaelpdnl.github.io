@@ -2,12 +2,25 @@
 title: "Instantly Colorful"
 cover: "/assets/projects/Instantly Colorful/metro.jpg"
 summary: "A street photography project to capture the romance and vitality of Shanghai"
-tech: [React, Vite, OpenWeather]
-links:
-  demo: https://example.com/wglass
-  github: https://github.com/michaelpdnl/weather-glass
+tech: [Street photography, art]
+# links:
+#   demo: https://example.com/wglass
+#   github: https://github.com/michaelpdnl/weather-glass
 featured: true
 date: 2026-08-01
+screenshots:
+  - /assets/projects/Instantly Colorful/1.jpg
+  - /assets/projects/Instantly Colorful/2.jpg
+  - /assets/projects/Instantly Colorful/3.jpg
+  - /assets/projects/Instantly Colorful/4.jpg
+  - /assets/projects/Instantly Colorful/5.jpg
+  - /assets/projects/Instantly Colorful/6.jpg
+  - /assets/projects/Instantly Colorful/7.jpg
+  - /assets/projects/Instantly Colorful/8.jpg
+  - /assets/projects/Instantly Colorful/9.jpg
+  - /assets/projects/Instantly Colorful/10.jpg
+  - /assets/projects/Instantly Colorful/11.jpg
+  - /assets/projects/Instantly Colorful/12.jpg
 ---
 
 Sometimes I dream of wasting my life wandering the streets. Sometimes I walk among the pedestrians and wonder what’s on their minds. Sometimes I’d hop on a random bus and ride till the terminal. And when the night falls, I return. The lights from the traffic renders the bokeh instantly colorful.

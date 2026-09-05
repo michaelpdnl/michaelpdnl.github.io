@@ -1,4 +1,5 @@
 import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { Carousel } from '../components/Carousel';
 import { MarkdownView } from '../components/Markdown';
 import type { PageContext } from '../components/Layout';
 import { useI18n } from '../lib/i18n';
@@ -67,13 +68,14 @@ export function ProjectDetailPage() {
       <MarkdownView className="detail-body" source={project.body} />
 
       {project.screenshots.length > 0 && (
-        <ul className="screenshot-list">
-          {project.screenshots.map((src, index) => (
-            <li key={`${src}-${index}`}>
-              <img src={src} alt={`${project.title} ${index + 1}`} loading="lazy" />
-            </li>
-          ))}
-        </ul>
+        <Carousel
+          className="detail-gallery"
+          label={t['carousel.gallery']}
+          slides={project.screenshots.map((src, i) => ({
+            src,
+            alt: `${project.title} ${i + 1}`,
+          }))}
+        />
       )}
     </section>
   );

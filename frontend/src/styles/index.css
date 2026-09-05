@@ -566,7 +566,6 @@ button {
 .hero-tagline {
   color: var(--accent);
   font-weight: 600;
-  margin-bottom: 1.1rem;
 }
 
 .hero-intro {
@@ -727,19 +726,123 @@ button {
   max-width: 46rem;
 }
 
-.screenshot-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+/* ---- image carousel (project screenshots) ------------------------------- */
+
+.carousel {
+  margin: 2.2rem 0 0;
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow);
+  touch-action: pan-y; /* allow vertical page scroll, keep horizontal for swipe */
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--text);
+  font-size: 1.6rem;
+  line-height: 1;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.carousel-btn.prev {
+  left: 0.7rem;
+}
+
+.carousel-btn.next {
+  right: 0.7rem;
+}
+
+.carousel-count {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  z-index: 2;
+  margin: 0;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
   list-style: none;
-  margin: 1.4rem 0 0;
+  margin: 0.8rem 0 0;
   padding: 0;
 }
 
-.screenshot-list img {
+.carousel-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  padding: 0;
+  border-radius: 50%;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: var(--bg-soft);
+  cursor: pointer;
+}
+
+.carousel-dot:hover {
+  border-color: var(--accent);
+}
+
+.carousel-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ---- blog --------------------------------------------------------------- */

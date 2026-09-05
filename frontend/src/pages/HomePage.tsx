@@ -33,14 +33,7 @@ export function HomePage() {
         />
         <h1 className="hero-name">{profile.name}</h1>
         {profile.tagline && <p className="hero-tagline">{profile.tagline}</p>}
-        <MarkdownView className="hero-intro" source={profile.body} />
-        <div className="hero-actions">
-          {/* content/profile/cv.pdf is served at /cv.pdf by the build plugin. */}
-          <a className="btn btn-primary" href="/cv.pdf" download>
-            {t['home.downloadCv']}
-          </a>
-        </div>
-        {(profile.email || profile.github) && (
+                {(profile.email || profile.github) && (
           <ul className="hero-links">
             {profile.email && (
               <li>
@@ -56,6 +49,13 @@ export function HomePage() {
             )}
           </ul>
         )}
+        <MarkdownView className="hero-intro" source={profile.body} />
+        <div className="hero-actions">
+          {/* content/profile/cv.pdf is served at /cv.pdf by the build plugin. */}
+          <a className="btn btn-primary" href="/cv.pdf" download>
+            {t['home.downloadCv']}
+          </a>
+        </div>
       </div>
     </section>
   );
