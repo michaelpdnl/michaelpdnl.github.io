@@ -203,7 +203,7 @@ export function getSiteContent(lang: Lang): SiteContent {
   const profileDoc = profileFiles[lang] ?? profileFiles.en;
   const profile: ProfileData | null = profileDoc
     ? {
-        name: str(profileDoc.data, 'name') ?? 'Michael Pdnl',
+        name: str(profileDoc.data, 'name') ?? 'LUO Yuanhao',
         tagline: str(profileDoc.data, 'tagline'),
         email: str(profileDoc.data, 'email'),
         github: str(profileDoc.data, 'github'),
