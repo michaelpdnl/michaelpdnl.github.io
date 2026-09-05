@@ -1,4 +1,4 @@
-import matter from 'gray-matter';
+import { parse as parseYaml } from 'yaml';
 import type { Lang, Post, ProfileData, Project, SiteContent } from './types';
 
 // Content Markdown lives at the repo root (one level above frontend/), so from
@@ -57,11 +57,41 @@ function classify(key: string): { type: ContentType; lang: Lang; slug?: string }
   return null;
 }
 
+/**
+ * Frontmatter convention: the file starts with a `---` line, the YAML block,
+ * then a closing `---` line. (The delimiter must start a line by itself —
+ * standard practice for this repo's content.)
+ */
+function splitFrontmatter(raw: string): { data: string; body: string } {
+  const text = raw.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n');
+  const lines = text.split('\n');
+  if ((lines[0] ?? '').trim() !== '---') {
+    return { data: '', body: text.trim() };
+  }
+  for (let i = 1; i < lines.length; i += 1) {
+    if (lines[i].trim() === '---') {
+      return { data: lines.slice(1, i).join('\n'), body: lines.slice(i + 1).join('\n').trim() };
+    }
+  }
+  // Unterminated block — treat everything as body content.
+  return { data: '', body: text.trim() };
+}
+
 function parseDoc(raw: string): { data: Record<string, unknown>; body: string } {
-  const parsed = matter(raw);
+  const { data: yamlSource, body } = splitFrontmatter(raw);
+  let parsed: unknown = {};
+  if (yamlSource) {
+    try {
+      parsed = parseYaml(yamlSource);
+    } catch {
+      parsed = {};
+    }
+  }
   return {
-    data: (parsed.data ?? {}) as Record<string, unknown>,
-    body: parsed.content.trim(),
+    // 'yaml' may return e.g. a Date for an unquoted timestamp under some
+    // schemas — always coerce to a plain record.
+    data: (typeof parsed === 'object' && parsed !== null ? parsed : {}) as Record<string, unknown>,
+    body,
   };
 }
 
@@ -95,8 +125,10 @@ function strs(data: Record<string, unknown>, key: string): string[] {
 }
 
 function dateOf(data: Record<string, unknown>): string {
-  const v = str(data, 'date');
-  return v && /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : '';
+  const v = data['date'];
+  if (v instanceof Date && !Number.isNaN(v.getTime())) return v.toISOString().slice(0, 10);
+  if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}/.test(v)) return v.slice(0, 10);
+  return '';
 }
 
 function isDraft(data: Record<string, unknown>): boolean {

@@ -75,13 +75,14 @@ interface I18nValue {
 const I18nContext = createContext<I18nValue | null>(null);
 
 function initialLang(): Lang {
+  // A language the visitor explicitly chose wins…
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'en' || saved === 'zh') return saved;
-    if (navigator.language.toLowerCase().startsWith('zh')) return 'zh';
   } catch {
     /* storage unavailable */
   }
+  // …otherwise default to English, regardless of the browser locale.
   return 'en';
 }
 

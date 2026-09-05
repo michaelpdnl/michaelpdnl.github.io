@@ -167,7 +167,8 @@ Intro paragraph(s) in Markdown, displayed on the home page.
 
 1. Load all `.md` per type+locale via `import.meta.glob('../../content/**/*.md',
    { eager: true, query: '?raw' })`.
-2. Parse frontmatter (gray-matter); render body at runtime.
+2. Parse frontmatter (a `---`-delimited YAML block via the browser-safe `yaml`
+   parser); render body at runtime.
 3. Filter `draft: true`; sort by `date` desc.
 4. Resolve current language → EN fallback → skip item only if neither exists.
 5. Derive the Projects sub-menu from the merged project list in the current language.
@@ -176,8 +177,9 @@ Intro paragraph(s) in Markdown, displayed on the home page.
 
 - **Routing:** `react-router` (history mode). Routes: `/`, `/projects`,
   `/projects/:slug`, `/blog`, `/blog/:slug`, `*` → 404.
-- **i18n state:** lightweight context or `i18next`; languages `en` | `zh`; persisted in
-  `localStorage`, default `en` (browser `navigator.language` can pre-select).
+- **i18n state:** lightweight context or `i18next`; languages `en` | `zh`; default is
+  `en` (never auto-selected from the browser locale); an explicit toggle choice
+  persists in `localStorage`.
 - **Theme state:** `prefers-color-scheme` default; manual override stored in
   `localStorage`; applied via `data-theme` attribute + CSS custom properties.
 - **Markdown rendering:** `marked`/`markdown-it` + sanitization (DOMPurify) — content is
@@ -288,5 +290,5 @@ v1), the seams already exist:
 | i18n | lightweight custom hook or i18next (en/zh) |
 | CI/CD | GitHub Actions (`actions/deploy-pages`) |
 | Hosting | GitHub Pages (static) |
-| Content | Markdown + YAML frontmatter, gray-matter parser |
+| Content | Markdown + YAML frontmatter (browser-safe `yaml` parser) |
 | Package manager | npm (lockfile committed) |
