@@ -164,9 +164,10 @@ button {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* Note: no backdrop-filter here — it would turn the header into the
+     containing block for the fixed-position mobile drawer/backdrop, breaking
+     their viewport anchoring (they would shrink to the header's box). */
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
   border-bottom: 1px solid var(--border);
 }
 
