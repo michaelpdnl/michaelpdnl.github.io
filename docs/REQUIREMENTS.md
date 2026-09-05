@@ -78,11 +78,13 @@ Menu (desktop: horizontal bar · mobile: hamburger → slide-down):
 
 ### 5.1 Global layout & navigation
 - Sticky top header on every page: site/name brand, nav menu, language toggle, theme toggle.
-- Desktop: horizontal menu; "My Projects" opens a hover/click dropdown listing every
-  project title (in the current language), each linking to `/projects/:slug`, plus an
+- Desktop: horizontal menu; clicking the "My Projects" label navigates to `/projects`,
+  while a separate ▾ caret (also on hover) opens the dropdown listing every project
+  title (in the current language), each linking to `/projects/:slug`, plus an
   "All projects" entry.
-- Mobile (< 768 px): hamburger button opens an overlay/drawer with the same menu; the
-  "My Projects" entry expands in place to show its sub-items.
+- Mobile (< 768 px): hamburger button opens a full-height drawer; "My Projects" expands
+  in place (accordion) to show each project (linking to `/projects/:slug`) plus
+  "All projects" → `/projects`. The drawer closes on outside tap / Escape.
 - The active route is highlighted in the menu.
 - Footer: small copyright line + link to the GitHub source repo (optional social links).
 - Language and theme choices persist between visits (localStorage).
@@ -98,7 +100,8 @@ Menu (desktop: horizontal bar · mobile: hamburger → slide-down):
 - `/projects`: overview grid of project cards → thumbnail/cover, title, one-line
   summary, tags/tech chips. Click → detail page.
 - `/projects/:slug`: hero (cover), full title, description in Markdown, tech-stack/tags,
-  links to live demo and/or GitHub source (when present), optional screenshot gallery.
+  links to live demo and/or GitHub source (when present); `screenshots:` images render
+  as an image carousel (arrows/dots/swipe) — hidden entirely when absent.
 - Cards and detail text switch language with the toggle.
 - Ordering: by `date` descending (newest first); `featured: true` projects may be pinned
   to the front of the grid.

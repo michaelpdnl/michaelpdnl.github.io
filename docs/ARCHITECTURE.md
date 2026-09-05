@@ -83,7 +83,7 @@ michaelpdnl.github.io/
 │       ├── components/
 │       │   ├── layout/             # Header, Nav, Dropdown, MobileMenu, Footer
 │       │   ├── ui/                 # ThemeToggle, LangToggle, Tag, Cards…
-│       │   └── content/            # MarkdownView, CoverImage…
+│       │   └── content/            # MarkdownView, CoverImage, Carousel…
 │       └── pages/
 │           ├── HomePage.tsx
 │           ├── ProjectsIndexPage.tsx
@@ -140,7 +140,7 @@ links:
   demo: https://example.com/wglass
   github: https://github.com/michaelpdnl/weather-glass
 cover: /assets/projects/wglass/cover.webp
-screenshots:                                  # optional gallery
+screenshots:                                  # optional carousel on the detail page
   - /assets/projects/wglass/01.webp
   - /assets/projects/wglass/02.webp
 featured: true                                # optional pin to grid front
@@ -191,9 +191,9 @@ App
 └─ Layout
    ├─ Header (sticky)
    │   ├─ Brand / site name
-   │   ├─ Nav: Home | MyProjects(Dropdown: per-project titles + "All projects") | Blog
+   │   ├─ Nav: Home | MyProjects(label → /projects + ▾ dropdown) | Blog
    │   ├─ LangToggle  ── ThemeToggle
-   │   └─ MobileMenu (drawer; accordion for My Projects)
+   │   └─ MobileMenu (drawer; My Projects = accordion)
    └─ <Outlet/>  → pages
    └─ Footer
 ```

@@ -114,6 +114,10 @@ Longer description in English…
 (in the current language), so adding/removing/renaming a project file automatically
 changes the menu. Each item links to `/projects/<slug>`.
 
+**Screenshots become a carousel.** Images listed under a project's `screenshots:` are
+shown as an image carousel (arrow buttons, dots, swipe) on its detail page — add two or
+more images to get the navigation controls; with none, the page is unchanged.
+
 ## 5. Updating the profile (photo, CV, intro)
 
 - Profile photo: replace `content/profile/photo.jpg` (keep the same filename & aspect).
