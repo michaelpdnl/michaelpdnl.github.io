@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const FALLBACK_SITE_NAME = 'Michael Pdnl';
+const FALLBACK_SITE_NAME = 'LUO Yuanhao';
 
 export interface PageMeta {
   title?: string;
