@@ -1,6 +1,6 @@
 ---
 name: "LUO Yuanhao"
-tagline: "A learner, a creator, a defender of his ideas"
+tagline: "A learner, a creator, an advocate of his ideas"
 email: michaelpdnl@gmail.com
 github: https://github.com/michaelpdnl
 ---
