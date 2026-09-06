@@ -18,5 +18,10 @@ export default defineConfig({
       // Allow dev-server access to the repo-root content/ directory.
       allow: [fileURLToPath(new URL('..', import.meta.url))],
     },
+    watch: {
+      // Ignore atomic-write temp artifacts (".name.<pid>.<uuid>.tmpdir") that
+      // editors produce — watching them can crash the watcher with EBUSY.
+      ignored: (path) => path.includes('.tmpdir') || path.endsWith('.tmp'),
+    },
   },
 });
