@@ -191,7 +191,7 @@ App
 └─ Layout
    ├─ Header (sticky)
    │   ├─ Brand / site name
-   │   ├─ Nav: Home | MyProjects(label → /projects + ▾ dropdown) | Blog
+   │   ├─ Nav: Home | MyProjects(dropdown: per-project titles + "All projects") | Blog
    │   ├─ LangToggle  ── ThemeToggle
    │   └─ MobileMenu (drawer; My Projects = accordion)
    └─ <Outlet/>  → pages

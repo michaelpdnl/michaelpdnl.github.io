@@ -23,10 +23,10 @@ Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
   (arrows, dots, swipe) driven by each project's `screenshots:` list.
 - **Blog** — post list (newest first) → article pages with rendered Markdown,
   dates and tags.
-- **Navigation** — desktop: clicking the "My Projects" label opens `/projects`;
-  a ▾ caret (or hover) shows the per-project dropdown plus "All projects".
-  Mobile (< 768 px): hamburger → full-height drawer; "My Projects" expands as
-  an accordion. The active route is highlighted.
+- **Navigation** — desktop: "My Projects" opens/closes a dropdown listing every project
+  (each linking to its detail page, plus "All projects" → `/projects`); the active route
+  is highlighted. Mobile (< 768 px): hamburger → full-height drawer; "My Projects"
+  expands as an accordion.
 - **Theme** — light/dark follows the OS; a manual toggle persists the choice.
 - **Language** — EN ⇄ 中文 toggle; default is English and an explicit choice
   persists. Missing 中文 content falls back to English.

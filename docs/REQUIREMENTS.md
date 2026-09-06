@@ -78,10 +78,9 @@ Menu (desktop: horizontal bar · mobile: hamburger → slide-down):
 
 ### 5.1 Global layout & navigation
 - Sticky top header on every page: site/name brand, nav menu, language toggle, theme toggle.
-- Desktop: horizontal menu; clicking the "My Projects" label navigates to `/projects`,
-  while a separate ▾ caret (also on hover) opens the dropdown listing every project
-  title (in the current language), each linking to `/projects/:slug`, plus an
-  "All projects" entry.
+- Desktop: horizontal menu; "My Projects" is a toggle — hovering or clicking opens and
+  closes a dropdown listing every project title (in the current language), each linking
+  to `/projects/:slug`, plus an "All projects" entry linking to the grid.
 - Mobile (< 768 px): hamburger button opens a full-height drawer; "My Projects" expands
   in place (accordion) to show each project (linking to `/projects/:slug`) plus
   "All projects" → `/projects`. The drawer closes on outside tap / Escape.

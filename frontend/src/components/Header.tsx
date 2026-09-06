@@ -95,25 +95,15 @@ export function Header({ content }: HeaderProps) {
                 onMouseEnter={() => setDropOpen(true)}
                 onMouseLeave={() => setDropOpen(false)}
               >
-                <span className="nav-duo">
-                  <Link
-                    to="/projects"
-                    className={`nav-link${onProjects ? ' active' : ''}`}
-                    aria-current={onProjects ? 'page' : undefined}
-                  >
-                    {t['nav.projects']}
-                  </Link>
-                  <button
-                    type="button"
-                    className="nav-caret"
-                    aria-haspopup="menu"
-                    aria-expanded={dropOpen}
-                    aria-label={t['nav.menuProjects']}
-                    onClick={() => setDropOpen((v) => !v)}
-                  >
-                    <span className="caret" aria-hidden="true">▾</span>
-                  </button>
-                </span>
+                <button
+                  type="button"
+                  className={`nav-link nav-btn${dropOpen || onProjects ? ' active' : ''}`}
+                  aria-haspopup="menu"
+                  aria-expanded={dropOpen}
+                  onClick={() => setDropOpen((v) => !v)}
+                >
+                  {t['nav.projects']} <span className="caret" aria-hidden="true">▾</span>
+                </button>
                 {dropOpen && (
                   <ul className="dropdown-menu" role="menu">
                     {projects.map((project) => (
