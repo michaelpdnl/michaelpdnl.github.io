@@ -29,6 +29,7 @@ export function BlogIndexPage() {
                   </div>
                 )}
                 <div className="post-main">
+                  {post.featured && <span className="post-pin">{t['post.pinned']}</span>}
                   <h3>{post.title}</h3>
                   <p className="post-date">{formatDate(post.date)}</p>
                   {post.summary && <p className="post-summary">{post.summary}</p>}

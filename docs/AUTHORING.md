@@ -58,6 +58,7 @@ summary: "A short teaser shown on the blog list."
 date: 2026-01-15
 tags: [life]
 cover: /assets/posts/my-first-thought.webp   # optional
+featured: false                              # optional: true pins it to the top of the blog index
 draft: false
 ---
 Today I learned that …

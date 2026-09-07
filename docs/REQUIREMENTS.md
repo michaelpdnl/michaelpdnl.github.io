@@ -108,6 +108,8 @@ Menu (desktop: horizontal bar · mobile: hamburger → slide-down):
 ### 5.4 Blog
 - `/blog`: list of posts as cards/rows → cover image (optional), title, date, tags, and a
   short summary. Newest first.
+- Pinning: frontmatter `featured: true` keeps a post at the top of the index (shown with
+  a small "Pinned" badge); several pinned posts sort by date among themselves.
 - `/blog/:slug`: article page: title, published date, tags, cover image, full Markdown
   body rendered cleanly (headings, lists, code blocks, quotes, images), nice typography.
 - Dates shown in the current UI language format (kept simple; may stay ISO).

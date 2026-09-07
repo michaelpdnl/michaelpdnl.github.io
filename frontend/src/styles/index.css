@@ -910,13 +910,15 @@ button {
 }
 
 .post-thumb {
-  width: 9rem;
+  width: 11rem;
   border-radius: var(--radius);
   object-fit: cover;
   background: var(--bg-soft);
   flex-shrink: 0;
   align-self: center;
-  aspect-ratio: 4 / 3;
+  /* Covers are authored at 16:9 — keep this ratio so cover art (and any text
+     on it) is never cropped in the list thumbnail. */
+  aspect-ratio: 16 / 9;
 }
 
 .post-thumb-fallback {
@@ -939,6 +941,19 @@ button {
 .post-main h3 {
   font-size: 1.15rem;
   margin: 0;
+}
+
+.post-pin {
+  align-self: flex-start;
+  width: max-content;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
 }
 
 .post-date {

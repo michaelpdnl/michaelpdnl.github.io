@@ -31,6 +31,8 @@ export interface Post {
   date: string;
   tags: string[];
   cover?: string;
+  /** Pin to the top of the blog index (`featured: true`). */
+  featured: boolean;
   body: string;
 }
 
@@ -38,6 +40,6 @@ export interface SiteContent {
   profile: ProfileData | null;
   /** Sorted: featured first, then date descending (newest first). */
   projects: Project[];
-  /** Sorted: date descending (newest first). */
+  /** Sorted: featured (pinned) first, then date descending (newest first). */
   posts: Post[];
 }

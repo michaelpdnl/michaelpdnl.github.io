@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="hello world cover, inspired by DeepSeek">
+  <title>hello world — written with DeepSeek</title>
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#2e6fd0"/>
+      <stop offset="0.45" stop-color="#173f86"/>
+      <stop offset="1" stop-color="#071127"/>
+    </linearGradient>
+    <radialGradient id="glowTop" cx="0.5" cy="0" r="0.75">
+      <stop offset="0" stop-color="#9cc9ff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#9cc9ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowDeep" cx="1" cy="1" r="0.9">
+      <stop offset="0" stop-color="#4d8dff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#4d8dff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.75" stop-color="#eaf4ff"/>
+      <stop offset="1" stop-color="#9cc9ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- deep sea background -->
+  <rect width="1600" height="900" fill="url(#sea)"/>
+  <rect width="1600" height="900" fill="url(#glowTop)"/>
+  <rect width="1600" height="900" fill="url(#glowDeep)"/>
+
+  <!-- faint sonar/depth rings -->
+  <g fill="none" stroke="#7fb4ff" stroke-opacity="0.10" stroke-width="2">
+    <circle cx="1430" cy="760" r="60"/>
+    <circle cx="1430" cy="760" r="130"/>
+    <circle cx="1430" cy="760" r="205"/>
+  </g>
+
+  <!-- deep-sea wave ribbons -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M -40 720 C 220 660, 420 780, 640 720 C 860 660, 1080 790, 1300 730 C 1450 695, 1540 720, 1660 700"
+          stroke="#bfdcff" stroke-opacity="0.10" stroke-width="10"/>
+    <path d="M -40 790 C 240 740, 460 850, 700 795 C 940 740, 1160 860, 1400 800 C 1500 776, 1570 792, 1660 780"
+          stroke="#ffffff" stroke-opacity="0.06" stroke-width="8"/>
+  </g>
+
+  <!-- a small whale leaping (deepseek nod) -->
+  <g fill="#eaf3ff" fill-opacity="0.16">
+    <path d="M 1330 640
+             C 1300 600, 1250 590, 1216 612
+             C 1184 634, 1186 684, 1222 706
+             C 1258 728, 1312 712, 1338 678
+             C 1350 664, 1356 650, 1358 640 Z"/>
+    <path d="M 1338 672
+             C 1364 656, 1392 652, 1406 664
+             C 1396 640, 1384 616, 1376 596
+             C 1374 632, 1364 660, 1346 678 Z"
+          fill="#eaf3ff" fill-opacity="0.16"/>
+  </g>
+
+  <!-- headline -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="116" y="300" font-size="136" font-weight="700" letter-spacing="-3" fill="url(#titleGrad)">
+      hello world
+    </text>
+    <rect x="852" y="196" width="14" height="96" fill="#8fd0ff" opacity="0.9">
+      <animate attributeName="opacity" values="0.9;0.1;0.9" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="122" y="392" font-size="33" fill="#ffffff" fill-opacity="0.85">
+      My first note on this site — written with a little help from DeepSeek.
+    </text>
+  </g>
+
+  <!-- terminal card -->
+  <g transform="translate(120 560)">
+    <rect width="560" height="190" rx="18" fill="#040b1e" fill-opacity="0.72"
+          stroke="#ffffff" stroke-opacity="0.16" stroke-width="2"/>
+    <g>
+      <circle cx="36" cy="34" r="9" fill="#ff5f57"/>
+      <circle cx="66" cy="34" r="9" fill="#febc2e"/>
+      <circle cx="96" cy="34" r="9" fill="#28c840"/>
+      <text x="140" y="44" font-family="Consolas, Menlo, monospace" font-size="22" fill="#9db8d8">hello.py</text>
+    </g>
+    <g font-family="Consolas, Menlo, monospace" font-size="30">
+      <text x="34" y="108" fill="#8fd0ff">&#62;&#62;&#62; <tspan fill="#ffd479">print</tspan><tspan fill="#ffffff">("hello world")</tspan></text>
+      <text x="34" y="158" fill="#ffffff" font-weight="bold">hello world</text>
+    </g>
+  </g>
+
+  <!-- deepseek wordmark -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="1480" y="840" font-size="52" font-weight="600" letter-spacing="8" text-anchor="end"
+          fill="#ffffff" fill-opacity="0.88">deepseek</text>
+  </g>
+</svg>

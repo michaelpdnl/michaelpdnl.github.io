@@ -122,6 +122,7 @@ summary: "One or two sentences shown on the blog index."
 date: 2026-01-15
 tags: [life, writing]
 cover: /assets/posts/thoughts-cover.webp   # optional
+featured: false                            # optional: pin to top of the blog index
 draft: false                                # true → excluded from build
 ---
 Markdown body…
@@ -169,7 +170,7 @@ Intro paragraph(s) in Markdown, displayed on the home page.
    { eager: true, query: '?raw' })`.
 2. Parse frontmatter (a `---`-delimited YAML block via the browser-safe `yaml`
    parser); render body at runtime.
-3. Filter `draft: true`; sort by `date` desc.
+3. Filter `draft: true`; sort pinned/featured first (`featured: true`), then `date` desc.
 4. Resolve current language → EN fallback → skip item only if neither exists.
 5. Derive the Projects sub-menu from the merged project list in the current language.
 

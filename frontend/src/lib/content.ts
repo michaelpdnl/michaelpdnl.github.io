@@ -191,6 +191,7 @@ function toPost(doc: FileDoc): Post {
     date: dateOf(d),
     tags: strs(d, 'tags'),
     cover: str(d, 'cover'),
+    featured: d['featured'] === true,
     body: doc.body,
   };
 }
@@ -225,7 +226,9 @@ export function getSiteContent(lang: Lang): SiteContent {
     const doc = choose(versions, lang);
     if (doc) posts.push(toPost(doc));
   }
-  posts.sort((a, b) => timestamp(b.date) - timestamp(a.date));
+  posts.sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || timestamp(b.date) - timestamp(a.date)
+  );
 
   return { profile, projects, posts };
 }

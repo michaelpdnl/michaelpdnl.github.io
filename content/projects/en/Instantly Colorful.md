@@ -23,7 +23,7 @@ screenshots:
   - /assets/projects/Instantly Colorful/12.jpg
 ---
 
-Sometimes I dream of wasting my life wandering the streets. Sometimes I walk among the pedestrians and wonder what’s on their minds. Sometimes I’d hop on a random bus and ride till the terminal. And when the night falls, I return. The lights from the traffic renders the bokeh instantly colorful.
+Sometimes I dream of squandering my life wandering the streets. Sometimes I walk among the pedestrians and wonder what’s on their minds. Sometimes I’d hop on a random bus and ride till the terminal. And when the night falls, I return. The lights from the traffic renders the bokeh instantly colorful.
 
 
 <!-- Weather Glass is a small experiment in building a pretty UI around a boring
