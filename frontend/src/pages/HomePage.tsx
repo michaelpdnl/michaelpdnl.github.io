@@ -52,7 +52,7 @@ export function HomePage() {
         <MarkdownView className="hero-intro" source={profile.body} />
         <div className="hero-actions">
           {/* content/profile/cv.pdf is served at /cv.pdf by the build plugin. */}
-          <a className="btn btn-primary" href="/cv.pdf" download>
+          <a className="btn btn-primary" href="/cv.pdf" target="_blank" rel="noopener noreferrer">
             {t['home.downloadCv']}
           </a>
         </div>
