@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "places": [
+    {
+      "id": "0ee6279d",
+      "name": "HKU CYM Canteen",
+      "lat": 22.28269786223862,
+      "lng": 114.139122068882,
+      "rating": 4,
+      "tags": [
+        "eatery"
+      ],
+      "notes": "The taste and range of choices are satisfactory, but the kiosk is always facing long queues in dining hours. Also it closes before 10 pm so it's not possible to grab night treats after class.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-08-30"
+    },
+    {
+      "id": "1a5c1462",
+      "name": "Saizeriya (Italian restaurant)",
+      "lat": 22.2849551028519,
+      "lng": 114.13322657346727,
+      "rating": 4,
+      "tags": [
+        "eatery"
+      ],
+      "notes": "Affordable. Good for an informal meal.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
+      "id": "26484a02",
+      "name": "HKU Lui Che Woo Law Library",
+      "lat": 22.28329268603014,
+      "lng": 114.1340419650078,
+      "rating": 5,
+      "tags": [
+        "study"
+      ],
+      "notes": "Seats are not hard to find. Some seats boast a great view of the city and sea downhill. Great place to study.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-07"
+    },
+    {
+      "id": "39ed050b",
+      "name": "Kennedy Town seaside",
+      "lat": 22.285160992649143,
+      "lng": 114.12912011146547,
+      "rating": 5,
+      "tags": [
+        "scenery"
+      ],
+      "notes": "Amazing view of the sea, the mountains, and the city sprawling the hills. Good for a jog or a walk.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-05"
+    },
+    {
+      "id": "55f34583",
+      "name": "Maxim's cakes",
+      "lat": 22.28620941598173,
+      "lng": 114.13510948419572,
+      "rating": 5,
+      "tags": [
+        "bakery"
+      ],
+      "notes": "Cakes are delicious, but bread choices are limited.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-09"
+    },
+    {
+      "id": "9e80de25",
+      "name": "HKU Canteen near composite building",
+      "lat": 22.282917955087783,
+      "lng": 114.13649886846544,
+      "rating": 4,
+      "tags": [
+        "eatery"
+      ],
+      "notes": "Affordable and the food is tasty. However, indoor seats are limited and always full during normal dining hours. Anyone knows why there're always sparrows flying around in this canteen?",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-08-29"
+    },
+    {
+      "id": "5266b964",
+      "name": "HKU Yu Chun Keung Medical Library",
+      "lat": 22.267170823509595,
+      "lng": 114.12853807210925,
+      "rating": 5,
+      "tags": [
+        "study"
+      ],
+      "notes": "Great view of the city and sea below. Seats are not hard to find, though some seats are insufficiently lighted. Have 24h study area.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import 'leaflet/dist/leaflet.css';
+import { Filters } from '../components/map/Filters';
+import { MapView } from '../components/map/MapView';
+import { OwnerToolbar } from '../components/map/OwnerToolbar';
+import { PlaceForm } from '../components/map/PlaceForm';
+import { PlaceList } from '../components/map/PlaceList';
+import { useI18n } from '../lib/i18n';
+import {
+  allTags,
+  downloadJson,
+  filterPlaces,
+  getPublishedPlaces,
+  loadLocalPlaces,
+  parsePlacesFile,
+  placesToFile,
+  samePlaces,
+  saveLocalPlaces,
+  sortPlaces,
+  type Place,
+  type PlaceFilter,
+} from '../lib/places';
+import { usePageMeta } from '../lib/seo';
+
+const NO_FILTER: PlaceFilter = { text: '', minRating: 0, tags: [] };
+
+/**
+ * Places map (docs/MAP.md).
+ *
+ * - Public: `/map` renders the committed snapshot, read-only.
+ * - Owner: `/map?edit=1` adds a local working copy (IndexedDB), edit/add/delete,
+ *   JSON export/import, and "Publish snapshot" which downloads a JSON with
+ *   private places stripped so it can be committed to `content/map/places.json`.
+ */
+export function MapPage() {
+  const { t } = useI18n();
+  // The URL stays the source of truth (?edit=1), so both modes remain linkable.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const editMode = searchParams.get('edit') === '1';
+  const published = useMemo(getPublishedPlaces, []);
+
+  const [places, setPlaces] = useState<Place[] | null>(null);
+  const [filter, setFilter] = useState<PlaceFilter>(NO_FILTER);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [editing, setEditing] = useState<Place | null>(null);
+  const [draftPoint, setDraftPoint] = useState<{ lat: number; lng: number } | null>(null);
+  const [notice, setNotice] = useState('');
+
+  // Regions where a click must NOT clear the selection: the map itself (which
+  // handles its own clicks) and the side panel (cards, notes, photos, forms).
+  const mapRegionRef = useRef<HTMLDivElement>(null);
+  const sideRegionRef = useRef<HTMLElement>(null);
+
+  usePageMeta({ title: t['map.title'], description: t['map.intro'] });
+
+  // Visitors read the published snapshot; the owner edits a local working copy.
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      if (!editMode) {
+        setPlaces(published);
+        return;
+      }
+      const local = await loadLocalPlaces();
+      if (cancelled) return;
+      if (local) {
+        setPlaces(local);
+        return;
+      }
+      // First visit in edit mode: seed the local copy from the published map.
+      setPlaces(published);
+      await saveLocalPlaces(published);
+    };
+    load().catch(() => {
+      if (!cancelled) setPlaces(published);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [editMode, published]);
+
+  const tags = useMemo(() => (places ? allTags(places) : []), [places]);
+  const visible = useMemo(
+    () => (places ? sortPlaces(filterPlaces(places, filter)) : []),
+    [places, filter]
+  );
+  const dirty = editMode && places !== null && !samePlaces(places, published);
+
+  const toggleEditMode = (next: boolean) => {
+    setSearchParams(next ? { edit: '1' } : {}, { replace: false });
+    if (!next) {
+      setEditing(null);
+      setDraftPoint(null);
+    }
+  };
+
+  const persist = (next: Place[]) => {
+    setPlaces(next);
+    if (editMode) {
+      saveLocalPlaces(next).catch(() => setNotice(t['map.saveFailed']));
+    }
+  };
+
+  const selectPlace = (id: string) => {
+    setSelectedId(id);
+    setDraftPoint(null);
+  };
+
+  /** Clicking the selected card again clears the selection. */
+  const togglePlace = (id: string) => {
+    setSelectedId((current) => (current === id ? null : id));
+    setDraftPoint(null);
+  };
+
+  /**
+   * Clicking the empty map deselects; in edit mode it also opens the
+   * "new place" form at that point.
+   */
+  const handleMapClick = (lat: number, lng: number) => {
+    setSelectedId(null);
+    if (editMode) {
+      setEditing(null);
+      setDraftPoint({ lat, lng });
+    }
+  };
+
+  // Clicking anywhere else on the site clears the selection.
+  useEffect(() => {
+    if (selectedId === null) return;
+    const onDocumentClick = (event: MouseEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+      if (mapRegionRef.current?.contains(target)) return;
+      if (sideRegionRef.current?.contains(target)) return;
+      setSelectedId(null);
+    };
+    document.addEventListener('click', onDocumentClick);
+    return () => document.removeEventListener('click', onDocumentClick);
+  }, [selectedId]);
+
+  const handleSubmit = (place: Place) => {
+    if (!places) return;
+    const exists = places.some((item) => item.id === place.id);
+    persist(exists ? places.map((item) => (item.id === place.id ? place : item)) : [...places, place]);
+    setEditing(null);
+    setDraftPoint(null);
+    setSelectedId(place.id);
+  };
+
+  const handleDelete = (place: Place) => {
+    if (!places || !window.confirm(t['map.deleteConfirm'])) return;
+    persist(places.filter((item) => item.id !== place.id));
+    setSelectedId((current) => (current === place.id ? null : current));
+    setEditing(null);
+    setDraftPoint(null);
+  };
+
+  const handleExport = () => {
+    if (places) downloadJson(placesToFile(places, true), 'places.json');
+  };
+
+  const handlePublish = () => {
+    if (!places) return;
+    downloadJson(placesToFile(places, false), 'places.json');
+    setNotice(t['map.publishHint']);
+  };
+
+  const handleImport = (file: File) => {
+    file
+      .text()
+      .then((text) => {
+        persist(parsePlacesFile(text));
+        setNotice(t['map.imported']);
+      })
+      .catch(() => setNotice(t['map.importFailed']));
+  };
+
+  const formOpen = editing !== null || draftPoint !== null;
+
+  return (
+    <section className="map-page">
+      <header className="map-page__head">
+        <div className="map-page__titles">
+          <h1 className="page-title">{t['map.title']}</h1>
+          <p className="page-sub">{t['map.intro']}</p>
+        </div>
+
+        <button
+          type="button"
+          role="switch"
+          aria-checked={editMode}
+          className={`mode-switch${editMode ? ' mode-switch--on' : ''}`}
+          onClick={() => toggleEditMode(!editMode)}
+        >
+          <span className="mode-switch__track" aria-hidden="true">
+            <span className="mode-switch__thumb" />
+          </span>
+          <span className="mode-switch__text">{t['map.editSwitch']}</span>
+        </button>
+      </header>
+
+      {editMode && (
+        <p className="map-notice">
+          <strong>{t['map.editMode']}</strong> {t['map.addHint']}
+        </p>
+      )}
+
+      {editMode && (
+        <OwnerToolbar dirty={dirty} onExport={handleExport} onImport={handleImport} onPublish={handlePublish} />
+      )}
+
+      {notice && <p className="map-notice">{notice}</p>}
+
+      <Filters
+        tags={tags}
+        filter={filter}
+        onChange={setFilter}
+        resultCount={visible.length}
+        total={places?.length ?? 0}
+      />
+
+      <div className="map-layout">
+        <div className="map-layout__map" ref={mapRegionRef}>
+          {places === null ? (
+            <p className="empty">{t['map.loading']}</p>
+          ) : (
+            <MapView
+              places={visible}
+              selectedId={selectedId}
+              onSelect={selectPlace}
+              editMode={editMode}
+              onMapClick={handleMapClick}
+            />
+          )}
+        </div>
+
+        <aside className="map-layout__side" ref={sideRegionRef}>
+          {formOpen && (
+            <PlaceForm
+              initial={editing}
+              point={draftPoint}
+              onSubmit={handleSubmit}
+              onCancel={() => {
+                setEditing(null);
+                setDraftPoint(null);
+              }}
+            />
+          )}
+
+          {places !== null && (
+            <PlaceList
+              places={visible}
+              selectedId={selectedId}
+              onToggleSelect={togglePlace}
+              editMode={editMode}
+              onEdit={(place) => {
+                setEditing(place);
+                setDraftPoint({ lat: place.lat, lng: place.lng });
+              }}
+              onDelete={handleDelete}
+            />
+          )}
+        </aside>
+      </div>
+    </section>
+  );
+}
