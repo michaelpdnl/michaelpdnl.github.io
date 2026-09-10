@@ -5,6 +5,9 @@ node_modules/
 # build output
 dist/
 
+# scratch data (e.g. the Natural Earth download used by scripts/make-hk-cover.mjs)
+.tmp-geo/
+
 # logs / os noise
 *.log
 .DS_Store
