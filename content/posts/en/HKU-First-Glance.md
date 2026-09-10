@@ -6,26 +6,9 @@ tags: [life,study,travel,Hong Kong]
 draft: false
 featured: false
 cover: "/assets/posts/HKU-First-Glance/13.jpg"
-screenshots:
-  - /assets/posts/HKU-First-Glance/01.jpg
-  - /assets/posts/HKU-First-Glance/02.jpg
-  - /assets/posts/HKU-First-Glance/03.jpg
-  - /assets/posts/HKU-First-Glance/04.jpg
-  - /assets/posts/HKU-First-Glance/05.jpg
-  - /assets/posts/HKU-First-Glance/06.jpg
-  - /assets/posts/HKU-First-Glance/07.jpg
-  - /assets/posts/HKU-First-Glance/08.jpg
-  - /assets/posts/HKU-First-Glance/09.jpg
-  - /assets/posts/HKU-First-Glance/10.jpg
-  - /assets/posts/HKU-First-Glance/11.jpg
-  - /assets/posts/HKU-First-Glance/12.jpg
-  - /assets/posts/HKU-First-Glance/13.jpg
-  - /assets/posts/HKU-First-Glance/14.jpg
-  - /assets/posts/HKU-First-Glance/15.jpg
-  - /assets/posts/HKU-First-Glance/16.jpg
 ---
 
-Today I toured the four campuses of The University of Hong Kong (Main, Centennial, Sassoon, Cyberport). The university is built along the hills and boast a mesmerizing view of both the sea and the mountains. The buildings and the facilities within are all in excellent conditions thanks to the care of the estates office. 
+Today I toured the four campuses of The University of Hong Kong (Main, Centennial, Sassoon, Cyberport). The university is built along the hills and boast a mesmerizing view of both the sea and the mountains. The buildings and the facilities within are all in excellent condition thanks to the care of the estates office. 
 
 I have always been interested in how these modern premises are designed, built, maintained, and managed daily. It must have entailed the concerted effort of architects, designers, civil engineers, project managers, as well as construction & maintenance staff. 
 
