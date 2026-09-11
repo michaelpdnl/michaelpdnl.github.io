@@ -44,6 +44,20 @@
       "visitedAt": "2026-09-07"
     },
     {
+      "id": "2c993f84",
+      "name": "HKU Main Library",
+      "lat": 22.283276594482594,
+      "lng": 114.13782387971881,
+      "rating": 4,
+      "tags": [
+        "study"
+      ],
+      "notes": "Seats are hard to find on lower floors. Sockets are not guaranteed for every seat. The books are interesting, but most people come here to do coursework rather than to read books. Should I have the time and leisure, I might actually pick books from random shelves and read them. Maybe when I retire...",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
       "id": "39ed050b",
       "name": "Kennedy Town seaside",
       "lat": 22.285160992649143,
@@ -58,11 +72,39 @@
       "visitedAt": "2026-09-05"
     },
     {
+      "id": "3a8c1260",
+      "name": "HKU Music Library",
+      "lat": 22.283691978217533,
+      "lng": 114.13439333438875,
+      "rating": 4,
+      "tags": [
+        "study"
+      ],
+      "notes": "Best scenery, though also most crowded. Don't expect to find seats there.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
+      "id": "5266b964",
+      "name": "HKU Yu Chun Keung Medical Library",
+      "lat": 22.267170823509595,
+      "lng": 114.12853807210925,
+      "rating": 5,
+      "tags": [
+        "study"
+      ],
+      "notes": "Great view of the city and sea below. Seats are not hard to find, though some seats are insufficiently lighted. Have 24h study area.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
       "id": "55f34583",
       "name": "Maxim's cakes",
       "lat": 22.28620941598173,
       "lng": 114.13510948419572,
-      "rating": 5,
+      "rating": 4,
       "tags": [
         "bakery"
       ],
@@ -70,6 +112,48 @@
       "photos": [],
       "private": false,
       "visitedAt": "2026-09-09"
+    },
+    {
+      "id": "590862f3",
+      "name": "HKU Subway",
+      "lat": 22.282612188612283,
+      "lng": 114.13833886384965,
+      "rating": 5,
+      "tags": [
+        "eatery"
+      ],
+      "notes": "A good choice for meals. Convenient, affordable and also balanced in nutrients.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-08-30"
+    },
+    {
+      "id": "6809d00e",
+      "name": "德记潮州菜馆",
+      "lat": 22.28561275020312,
+      "lng": 114.1323146224022,
+      "rating": 4,
+      "tags": [
+        "eatery"
+      ],
+      "notes": "Worth the price.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-08-29"
+    },
+    {
+      "id": "6bf0e4f2",
+      "name": "Chi Wah Learning Commons",
+      "lat": 22.28367314722884,
+      "lng": 114.13468033075335,
+      "rating": 3,
+      "tags": [
+        "study"
+      ],
+      "notes": "Seats are hard to find if you don't come early. Lots of seats don't have sockets. The ventilation is not good, so it always feel a little dizzy there. Only good for lucubrating.",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
     },
     {
       "id": "9e80de25",
@@ -86,18 +170,46 @@
       "visitedAt": "2026-08-29"
     },
     {
-      "id": "5266b964",
-      "name": "HKU Yu Chun Keung Medical Library",
-      "lat": 22.267170823509595,
-      "lng": 114.12853807210925,
+      "id": "e7d918a3",
+      "name": "Cyberport seaside",
+      "lat": 22.25760428109074,
+      "lng": 114.1307294368744,
       "rating": 5,
       "tags": [
-        "study"
+        "scenery"
       ],
-      "notes": "Great view of the city and sea below. Seats are not hard to find, though some seats are insufficiently lighted. Have 24h study area.",
+      "notes": "Splendid view. An urban escape. Infrastructure are new and so are the buildings. Also the home of HKU Business School.",
       "photos": [],
       "private": false,
       "visitedAt": "2026-09-08"
+    },
+    {
+      "id": "3bfb46fe",
+      "name": "HKU Business School",
+      "lat": 22.259399904255453,
+      "lng": 114.13055509328844,
+      "rating": 4,
+      "tags": [
+        "study"
+      ],
+      "notes": "Good facilities, but not open to non-business school students and staff...",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
+      "id": "c2e7b380",
+      "name": "Causeway Bay",
+      "lat": 22.279206736903266,
+      "lng": 114.18293327093126,
+      "rating": 4,
+      "tags": [
+        "shopping"
+      ],
+      "notes": "Good place to shop",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-08-29"
     }
   ]
 }
