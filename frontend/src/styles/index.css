@@ -1377,6 +1377,9 @@ button {
 /* Layout: map + side list */
 
 .map-layout {
+  /* Shared map height so the side list can be capped to match it. */
+  --map-h: min(72vh, 640px);
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) 23rem;
   gap: 1.25rem;
@@ -1388,12 +1391,37 @@ button {
   flex-direction: column;
   gap: 1rem;
   min-width: 0;
+  /* Never taller than the map: the list scrolls inside this box instead of
+     stretching the page. */
+  max-height: var(--map-h);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.map-layout__side::-webkit-scrollbar {
+  width: 8px;
+}
+
+.map-layout__side::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.map-layout__side::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.map-layout__side::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 /* Leaflet canvas */
 
 .map-canvas {
-  height: min(72vh, 640px);
+  height: var(--map-h);
   width: 100%;
   border: 1px solid var(--border);
   border-radius: var(--radius-l);
@@ -1694,10 +1722,8 @@ html[data-theme='dark'] .chip--private {
 @media (max-width: 900px) {
   .map-layout {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .map-canvas {
-    height: 60vh;
+    /* Stacked layout: the map shortens and the list caps to the same height. */
+    --map-h: 60vh;
   }
 
   .map-filters__count {

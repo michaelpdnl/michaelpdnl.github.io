@@ -200,6 +200,11 @@ automatically: the snapshot stays the single source of truth for visitors.
 ### Responsive & accessibility
 - Layout: map and side list are two columns above 900 px; below that the list stacks under
   the map (`60vh` tall) and the filter row reflows.
+- The side list is capped to the map's height (`--map-h`, shared by `.map-canvas` and
+  `.map-layout__side`) and **scrolls internally** with a thin themed scrollbar
+  (`overscroll-behavior: contain`), so adding places never stretches the page — the map and
+  list always form one self-contained block. In stacked (mobile) mode it caps to the same
+  shortened map height. The edit form lives inside that scroll area too.
 - Keyboard/assistive tech: list items are focusable buttons exposing `aria-expanded`; the
   star input is a row of buttons using `aria-pressed`; map clicks land on the same
   selection state as the list; popups are dismissible with Escape (Leaflet default);
