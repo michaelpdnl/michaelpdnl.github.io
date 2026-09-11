@@ -11,13 +11,23 @@ interface PlaceListProps {
   editMode: boolean;
   onEdit: (place: Place) => void;
   onDelete: (place: Place) => void;
+  /** Shown when the list is empty (defaults to the "no matches" message). */
+  emptyMessage?: string;
 }
 
-export function PlaceList({ places, selectedId, onToggleSelect, editMode, onEdit, onDelete }: PlaceListProps) {
+export function PlaceList({
+  places,
+  selectedId,
+  onToggleSelect,
+  editMode,
+  onEdit,
+  onDelete,
+  emptyMessage,
+}: PlaceListProps) {
   const { t } = useI18n();
 
   if (places.length === 0) {
-    return <p className="empty">{t['map.noResults']}</p>;
+    return <p className="empty">{emptyMessage ?? t['map.noResults']}</p>;
   }
 
   return (

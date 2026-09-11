@@ -125,6 +125,21 @@ export function MapPage() {
     }
   };
 
+  /**
+   * Replaces the local working copy with the committed snapshot. Enters via the
+   * toolbar button (with a confirm) — the local copy is never overwritten
+   * automatically, so unpublished edits can't be lost silently.
+   */
+  const handleLoadPublished = () => {
+    if (!window.confirm(t['map.loadPublishedConfirm'])) return;
+    persist(published);
+    setSelectedId(null);
+    setEditing(null);
+    setDraftPoint(null);
+    // No success notice: the toolbar status line ("In sync… Local n · Published m")
+    // already reflects the result.
+  };
+
   // Clicking anywhere else on the site clears the selection.
   useEffect(() => {
     if (selectedId === null) return;
@@ -206,8 +221,22 @@ export function MapPage() {
         </p>
       )}
 
+      {editMode && places !== null && places.length === 0 && published.length > 0 && (
+        <p className="map-notice map-notice--action">
+          <strong>{t['map.localEmpty']}</strong> {t['map.localEmptyHint']} ({published.length})
+        </p>
+      )}
+
       {editMode && (
-        <OwnerToolbar dirty={dirty} onExport={handleExport} onImport={handleImport} onPublish={handlePublish} />
+        <OwnerToolbar
+          dirty={dirty}
+          localCount={places?.length ?? 0}
+          publishedCount={published.length}
+          onExport={handleExport}
+          onImport={handleImport}
+          onPublish={handlePublish}
+          onLoadPublished={handleLoadPublished}
+        />
       )}
 
       {notice && <p className="map-notice">{notice}</p>}
@@ -254,6 +283,9 @@ export function MapPage() {
               selectedId={selectedId}
               onToggleSelect={togglePlace}
               editMode={editMode}
+              emptyMessage={
+                editMode && places.length === 0 ? t['map.localEmpty'] : undefined
+              }
               onEdit={(place) => {
                 setEditing(place);
                 setDraftPoint({ lat: place.lat, lng: place.lng });

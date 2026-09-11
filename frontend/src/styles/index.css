@@ -1298,6 +1298,17 @@ button {
   font-weight: 600;
 }
 
+.owner-toolbar__counts {
+  color: var(--muted);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Actionable notice (e.g. empty local copy while the published map has places) */
+.map-notice--action {
+  border-left-color: #e8a33d;
+}
+
 /* Filters */
 
 .map-filters {
@@ -1691,5 +1702,46 @@ html[data-theme='dark'] .chip--private {
 
   .map-filters__count {
     margin-left: 0;
+  }
+}
+
+/* Phones: keep the search box and the rating select side by side on one row.
+   The fixed 11rem minimums are dropped, the fields share the row evenly, and the
+   visible "Min rating" caption moves to screen-reader-only to save width (the
+   select keeps that text as its accessible label). */
+@media (max-width: 767px) {
+  .map-filters {
+    gap: 0.5rem;
+  }
+
+  .map-filters__field {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .map-filters__field input[type='search'],
+  .map-filters__rating select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .map-filters__rating > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .map-filters__tags {
+    flex: 1 1 100%;
+  }
+
+  .map-filters__count {
+    margin-left: auto;
   }
 }

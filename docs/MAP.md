@@ -178,10 +178,21 @@ switch remains visible so it can be turned back off.
   photo paths, visited date, *don't publish* switch). Leaving edit mode closes any open
   form or draft pin.
 - Edit and delete existing places; changes autosave to IndexedDB on every change.
-- Buttons: **Export JSON** (full backup incl. private), **Import JSON**, **Publish snapshot**
-  (downloads `places.json` filtered to public places, ready to commit).
-- A status line reports whether the local copy is ahead of the published snapshot.
+- Buttons: **Export JSON** (full backup incl. private), **Import JSON**, **Load published
+  places**, **Publish snapshot** (downloads `places.json` filtered to public places, ready
+  to commit).
+- A status line reports whether the local copy is ahead of the published snapshot and how
+  many places each side holds (`Local n · Published m`).
 - Private places are marked with a "Private" chip in the list (owner view only).
+
+**Reconciling the local copy with the published map.** The local working copy lives in one
+browser and is seeded from the snapshot only on *first* use, so it can drift: a browser that
+first entered edit mode while `places.json` was still empty keeps an empty copy, and adding
+places elsewhere (another browser, or a hand-edited snapshot) makes the two diverge — which
+the status line flags as "local copy differs". The page then shows an actionable notice and
+**Load published places** replaces the local copy with the committed snapshot (behind a
+confirm, so unpublished local edits are never discarded silently). Nothing syncs
+automatically: the snapshot stays the single source of truth for visitors.
 
 ### Responsive & accessibility
 - Layout: map and side list are two columns above 900 px; below that the list stacks under
@@ -235,8 +246,10 @@ map styles in `styles/index.css`, and dependencies `leaflet`, `react-leaflet`,
 
 ## 9. Publishing workflow (owner)
 
-1. Open `/map` and flip the **Edit mode** switch (or open `/map?edit=1`), then add/edit
-   places — saved locally as you go.
+1. Open `/map` and flip the **Edit mode** switch (or open `/map?edit=1`). On a browser that
+   has never edited before, the local copy is seeded from the published snapshot; on a
+   browser whose copy is empty while the snapshot has places, press **Load published
+   places** first. Then add/edit places — saved locally as you go.
 2. Press **Publish snapshot** → a `places.json` downloads (private places removed).
 3. Save it over `content/map/places.json`; add any new photos under
    `content/assets/map/<place>/`.

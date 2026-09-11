@@ -3,12 +3,26 @@ import { useI18n } from '../../lib/i18n';
 
 interface OwnerToolbarProps {
   dirty: boolean;
+  /** Number of places in the local (browser) copy. */
+  localCount: number;
+  /** Number of places in the committed snapshot. */
+  publishedCount: number;
   onExport: () => void;
   onImport: (file: File) => void;
   onPublish: () => void;
+  /** Replaces the local copy with the published snapshot. */
+  onLoadPublished: () => void;
 }
 
-export function OwnerToolbar({ dirty, onExport, onImport, onPublish }: OwnerToolbarProps) {
+export function OwnerToolbar({
+  dirty,
+  localCount,
+  publishedCount,
+  onExport,
+  onImport,
+  onPublish,
+  onLoadPublished,
+}: OwnerToolbarProps) {
   const { t } = useI18n();
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -33,12 +47,19 @@ export function OwnerToolbar({ dirty, onExport, onImport, onPublish }: OwnerTool
         }}
       />
 
+      <button type="button" className="btn btn-ghost" onClick={onLoadPublished}>
+        {t['map.loadPublished']}
+      </button>
+
       <button type="button" className="btn btn-primary" onClick={onPublish}>
         {t['map.publish']}
       </button>
 
       <p className={`owner-toolbar__status${dirty ? ' owner-toolbar__status--dirty' : ''}`}>
-        {dirty ? t['map.localAhead'] : t['map.inSync']}
+        {dirty ? t['map.localAhead'] : t['map.inSync']}{' '}
+        <span className="owner-toolbar__counts">
+          {t['map.localShort']} {localCount} · {t['map.publishedShort']} {publishedCount}
+        </span>
       </p>
     </div>
   );
