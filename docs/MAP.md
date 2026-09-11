@@ -138,12 +138,15 @@ private entry can never reach the public map.
   few exist, zoom is capped at 16, a single pin opens at zoom 15, 48 px padding is added,
   and the view refits (animated) whenever the filtered pin set changes — an empty result
   keeps the current view.
-- **Marker icons:** places tagged `eatery`, `bakery`, `study` or `scenery` show a themed
-  glyph in their pin (fork & knife, bread loaf, open book, mountains & sun) instead of the
-  rating number — the pin colour still encodes the rating, and the glyph also appears next
-  to the name in the popup and the list. Tag matching is case-insensitive; when several of
-  these tags are present the order is `eatery → bakery → study → scenery`. All other places
-  keep the default rating-number circle. Glyphs live in `frontend/src/lib/placeIcons.tsx`
+- **Marker icons:** every pin carries a glyph. Places tagged `eatery`, `bakery`, `study`,
+  `scenery` or `shopping` get a themed glyph (fork & knife, bread loaf, open book,
+  mountains & sun, shopping bag); anything else gets the **general map-marker glyph**
+  (teardrop with a hole). The rating is no longer printed on the pin — it stays encoded by
+  the pin's colour and is shown as stars in the popup and the list. Tag matching is
+  case-insensitive; when several of these tags are present the order is
+  `eatery → bakery → study → scenery → shopping`. The tag glyphs also appear next to the
+  name in the popup and list (the general glyph is pin-only, to avoid decorating every
+  row). Glyphs live in `frontend/src/lib/placeIcons.tsx`
   as inline SVG, so they need no image files and follow the pin's text colour in both
   themes. Icons are cached per (rating, glyph, selected) so re-renders never rebuild the
   marker DOM.
@@ -302,7 +305,7 @@ live site does not serve `/map` yet:
 | --- | --- |
 | Data layer (types, published snapshot loader, IndexedDB store, JSON I/O, filters) | `frontend/src/lib/places.ts` |
 | Map, click-to-add, rating pins, popups, default-view fitting | `frontend/src/components/map/MapView.tsx` |
-| Pin glyphs for `eatery` / `bakery` / `study` / `scenery` tags | `frontend/src/lib/placeIcons.tsx` |
+| Pin glyphs for `eatery` / `bakery` / `study` / `scenery` / `shopping` tags | `frontend/src/lib/placeIcons.tsx` |
 | Search + min-rating + tag filters + result count | `frontend/src/components/map/Filters.tsx` |
 | Place list: selection sync, notes, photos, private chip | `frontend/src/components/map/PlaceList.tsx` |
 | Create/edit form (stars, tags, notes, photos, private flag) | `frontend/src/components/map/PlaceForm.tsx` |

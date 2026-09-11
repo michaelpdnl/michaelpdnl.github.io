@@ -11,9 +11,12 @@
  */
 
 /** Tag → glyph. Order is the priority when a place carries several of them. */
-export const PIN_ICON_TAGS = ['eatery', 'bakery', 'study', 'scenery'] as const;
+export const PIN_ICON_TAGS = ['eatery', 'bakery', 'study', 'scenery', 'shopping'] as const;
 
-export type PinIconKey = (typeof PIN_ICON_TAGS)[number];
+export type PinIconKey = (typeof PIN_ICON_TAGS)[number] | 'place';
+
+/** Glyph used when none of the tags above match. */
+export const PLACE_ICON_KEY: PinIconKey = 'place';
 
 const ICON_PATHS: Record<PinIconKey, string> = {
   // Fork and knife.
@@ -39,12 +42,28 @@ const ICON_PATHS: Record<PinIconKey, string> = {
     '<circle cx="17.3" cy="5.9" r="2.4"/>',
     '<path d="M2 19.6l5.7-8.3 3.3 4.5 2.7-3.6 7.4 7.4z"/>',
   ].join(''),
+  // Shopping bag: tapered body with a rounded handle (the handle is stroked so
+  // it stays a thin, crisp line at pin size).
+  shopping: [
+    '<path d="M5.2 8.4h13.6l-1.05 8.9c-.12 1.02-.98 1.79-2.01 1.79H8.26c-1.03 0-1.89-.77-2.01-1.79z"/>',
+    '<path d="M8.6 8.4a3.4 3.4 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+  ].join(''),
+  // General glyph for places without any of the tags above: a classic map
+  // marker (teardrop with a hole cut through it via even-odd fill).
+  place:
+    '<path fill-rule="evenodd" d="M12 2.5c3.6 0 6.5 2.9 6.5 6.5 0 4.6-4.7 9.1-6.5 12.5-1.8-3.4-6.5-7.9-6.5-12.5 0-3.6 2.9-6.5 6.5-6.5z' +
+    'M12 6.4a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 1 0 0-5.2z"/>',
 };
 
-/** Icon key for a place's tags, or null when it should keep the rating circle. */
+/** Icon key for a place's tags, or null when it falls back to the general glyph. */
 export function pinIconForTags(tags: string[]): PinIconKey | null {
   const lower = new Set(tags.map((tag) => tag.toLowerCase().trim()));
   return PIN_ICON_TAGS.find((tag) => lower.has(tag)) ?? null;
+}
+
+/** Icon key for a place: its tag glyph, or the general "place" marker. */
+export function pinIconKeyForTags(tags: string[]): PinIconKey {
+  return pinIconForTags(tags) ?? PLACE_ICON_KEY;
 }
 
 /** SVG markup for Leaflet `divIcon` HTML. */

@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import { useEffect, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
-import { PlaceIcon, pinIconForTags, pinIconSvg } from '../../lib/placeIcons';
+import { PlaceIcon, pinIconKeyForTags, pinIconSvg } from '../../lib/placeIcons';
 import { stars, type Place } from '../../lib/places';
 
 /** Fallback view when there is nothing to fit: Hong Kong. */
@@ -25,24 +25,25 @@ const FIT_PADDING: [number, number] = [48, 48];
 
 /**
  * Custom pin (no image assets needed): a coloured circle carrying the rating —
- * or, for places tagged eatery / bakery / study / scenery, a themed glyph.
+ * Every pin carries a glyph: the place's tag glyph, or the general map-marker
+ * glyph when no tag matches. The pin colour still encodes the rating.
  * Icons are cached per (rating, glyph, selected) so re-renders reuse the same
  * instance and Leaflet does not rebuild the marker DOM.
  */
 const iconCache = new Map<string, L.DivIcon>();
 
 function pinIcon(place: Place, selected: boolean): L.DivIcon {
-  const category = pinIconForTags(place.tags);
-  const cacheKey = `${place.rating}|${category ?? 'none'}|${selected ? 'selected' : 'default'}`;
+  const iconKey = pinIconKeyForTags(place.tags);
+  const cacheKey = `${place.rating}|${iconKey}|${selected ? 'selected' : 'default'}`;
   const cached = iconCache.get(cacheKey);
   if (cached) return cached;
 
-  const content = category ? pinIconSvg(category) : String(place.rating);
+  const content = pinIconSvg(iconKey);
   const icon = L.divIcon({
     className: 'map-marker',
-    html: `<span class="map-marker__pin map-marker__pin--r${place.rating}${
-      category ? ' map-marker__pin--icon' : ''
-    }${selected ? ' map-marker__pin--selected' : ''}">${content}</span>`,
+    html: `<span class="map-marker__pin map-marker__pin--r${place.rating} map-marker__pin--icon${
+      selected ? ' map-marker__pin--selected' : ''
+    }">${content}</span>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -16],
