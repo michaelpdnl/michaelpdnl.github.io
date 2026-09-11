@@ -1257,6 +1257,15 @@ button {
   transform: translateX(0.95rem);
 }
 
+/* The owner's edit switch is desktop-only. On phones the map stays read-only, so
+   the switch is hidden in view mode — but it stays visible once edit mode is
+   active (e.g. opened via /map?edit=1) so it can always be switched back off. */
+@media (max-width: 767px) {
+  .mode-switch:not(.mode-switch--on) {
+    display: none;
+  }
+}
+
 .map-notice {
   margin: 0.6rem 0 1rem;
   padding: 0.6rem 0.85rem;

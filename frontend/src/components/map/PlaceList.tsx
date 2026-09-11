@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { useI18n } from '../../lib/i18n';
 import { PlaceIcon } from '../../lib/placeIcons';
 import { stars, type Place } from '../../lib/places';
@@ -16,12 +15,6 @@ interface PlaceListProps {
 
 export function PlaceList({ places, selectedId, onToggleSelect, editMode, onEdit, onDelete }: PlaceListProps) {
   const { t } = useI18n();
-  const selectedRef = useRef<HTMLLIElement>(null);
-
-  // Keep the selected card visible (e.g. when its pin was clicked on the map).
-  useEffect(() => {
-    selectedRef.current?.scrollIntoView({ block: 'nearest' });
-  }, [selectedId]);
 
   if (places.length === 0) {
     return <p className="empty">{t['map.noResults']}</p>;
@@ -34,7 +27,6 @@ export function PlaceList({ places, selectedId, onToggleSelect, editMode, onEdit
         return (
           <li
             key={place.id}
-            ref={selected ? selectedRef : undefined}
             className={`place-card${selected ? ' place-card--active' : ''}`}
           >
             <button

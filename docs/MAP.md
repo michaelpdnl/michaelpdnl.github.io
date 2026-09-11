@@ -149,8 +149,11 @@ private entry can never reach the public map.
   marker DOM.
 - Side list of places, sorted by rating then name; selecting a list item focuses its
   marker and vice versa. The **selected pin is highlighted** (scaled up 1.3× with an accent
-  halo ring and raised above the other pins via `zIndexOffset`) and the selected card is
-  scrolled into view, so list and map always agree on what is selected.
+  halo ring and raised above the other pins via `zIndexOffset`) and the matching card is
+  highlighted, so list and map always agree on what is selected.
+- **No page scrolling on selection:** picking a pin (or a card) never scrolls the window —
+  the page stays where you left it; only the map pans/zooms to show the pin. The list does
+  not follow the selection either (`scrollIntoView` was deliberately removed).
 - **Deselecting:** clicking the already-selected card toggles the selection off; clicking
   the empty map clears it (a click inside a popup is ignored, so popups stay usable); and
   clicking anywhere else on the site — header, footer, filters, page background — also
@@ -167,7 +170,9 @@ private entry can never reach the public map.
 
 Entered with the **Edit mode switch** in the page header — it toggles between view and edit
 in place and keeps the URL in sync (`/map` ⇄ `/map?edit=1`), so either mode can still be
-linked or reloaded.
+linked or reloaded. On phones (≤ 767 px) the switch is hidden while in view mode, so the
+map stays read-only there; `/map?edit=1` still works and, once edit mode is active, the
+switch remains visible so it can be turned back off.
 
 - Everything above, plus: click map → "New place" form (name, stars, tags, Markdown notes,
   photo paths, visited date, *don't publish* switch). Leaving edit mode closes any open
