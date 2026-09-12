@@ -4,7 +4,7 @@ cover: "/assets/projects/hkfootprints/cover.jpg"
 summary: "Places I've been — rated, tagged and noted."
 tech: [life, travel, Hong Kong]
 links:
-    demo: https://luoyuanhao.com/map
+    demo: ../map
 #   github: https://github.com/michaelpdnl/weather-glass
 featured: true
 date: 2026-09-11
