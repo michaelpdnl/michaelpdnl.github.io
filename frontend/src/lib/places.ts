@@ -222,6 +222,21 @@ export function sortPlaces(places: Place[]): Place[] {
   return [...places].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name));
 }
 
+/**
+ * Moves the selected place to the front of the list, leaving the relative order
+ * of every other place untouched. Used by the side list so the card you clicked
+ * is always the first one (and deselecting drops it back where it belongs).
+ */
+export function pinSelectedFirst(places: Place[], selectedId: string | null): Place[] {
+  if (!selectedId) return places;
+  const at = places.findIndex((place) => place.id === selectedId);
+  if (at <= 0) return places;
+  const next = [...places];
+  const [selected] = next.splice(at, 1);
+  next.unshift(selected);
+  return next;
+}
+
 export function allTags(places: Place[]): string[] {
   const tags = new Set<string>();
   for (const place of places) for (const tag of place.tags) tags.add(tag);

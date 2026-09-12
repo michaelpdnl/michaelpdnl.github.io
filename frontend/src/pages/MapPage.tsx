@@ -14,6 +14,7 @@ import {
   getPublishedPlaces,
   loadLocalPlaces,
   parsePlacesFile,
+  pinSelectedFirst,
   placesToFile,
   samePlaces,
   saveLocalPlaces,
@@ -85,6 +86,12 @@ export function MapPage() {
     () => (places ? sortPlaces(filterPlaces(places, filter)) : []),
     [places, filter]
   );
+  /**
+   * The side list shows the selected place first: clicking a card lifts it to the
+   * top and clearing the selection returns it to its sorted position. Only the
+   * selected card moves — everything else keeps its relative order.
+   */
+  const listed = useMemo(() => pinSelectedFirst(visible, selectedId), [visible, selectedId]);
   const dirty = editMode && places !== null && !samePlaces(places, published);
 
   const toggleEditMode = (next: boolean) => {
@@ -152,6 +159,18 @@ export function MapPage() {
     };
     document.addEventListener('click', onDocumentClick);
     return () => document.removeEventListener('click', onDocumentClick);
+  }, [selectedId]);
+
+  /**
+   * Keeps the card we just lifted to the top of the list visible. Only the side
+   * panel's own scroll position moves (never the page), and when the list has no
+   * scrollbar of its own — phones, where it flows with the page — this is a no-op.
+   */
+  useEffect(() => {
+    if (!selectedId) return;
+    const panel = sideRegionRef.current;
+    if (!panel || panel.scrollHeight <= panel.clientHeight) return;
+    panel.scrollTo({ top: 0, behavior: 'smooth' });
   }, [selectedId]);
 
   const handleSubmit = (place: Place) => {
@@ -279,7 +298,7 @@ export function MapPage() {
 
           {places !== null && (
             <PlaceList
-              places={visible}
+              places={listed}
               selectedId={selectedId}
               onToggleSelect={togglePlace}
               editMode={editMode}
