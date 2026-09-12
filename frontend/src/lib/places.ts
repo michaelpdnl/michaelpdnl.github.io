@@ -243,6 +243,26 @@ export function allTags(places: Place[]): string[] {
   return [...tags].sort((a, b) => a.localeCompare(b));
 }
 
+/**
+ * Where to scroll so the **top of the map** ends up at the top of the page,
+ * used on phones where the side list flows with the page instead of scrolling
+ * inside its own box (docs/MAP.md §6). The sticky header would otherwise cover
+ * the map, so its height is added to the offset.
+ *
+ * Returns null when the map is already in place (or only a nudge away), so
+ * re-selecting a card does not make the page creep upwards.
+ */
+export function mapTopScrollTarget(
+  mapTop: number,
+  scrollY: number,
+  headerHeight: number,
+  tolerance = 4
+): number | null {
+  const target = scrollY + mapTop - headerHeight;
+  if (target < 0) return null;
+  return Math.abs(target - scrollY) <= tolerance ? null : target;
+}
+
 export function filterPlaces(places: Place[], filter: PlaceFilter): Place[] {
   const text = filter.text.trim().toLowerCase();
   return places.filter((place) => {

@@ -13,6 +13,7 @@ import {
   filterPlaces,
   getPublishedPlaces,
   loadLocalPlaces,
+  mapTopScrollTarget,
   parsePlacesFile,
   pinSelectedFirst,
   placesToFile,
@@ -25,6 +26,11 @@ import {
 import { usePageMeta } from '../lib/seo';
 
 const NO_FILTER: PlaceFilter = { text: '', minRating: 0, tags: [] };
+
+/** Matches the stylesheet breakpoint where the list stops scrolling on its own. */
+function matchesPhoneLayout(): boolean {
+  return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 767px)').matches;
+}
 
 /**
  * Places map (docs/MAP.md).
@@ -162,15 +168,38 @@ export function MapPage() {
   }, [selectedId]);
 
   /**
-   * Keeps the card we just lifted to the top of the list visible. Only the side
-   * panel's own scroll position moves (never the page), and when the list has no
-   * scrollbar of its own — phones, where it flows with the page — this is a no-op.
+   * Keeps the card we just lifted to the top of the list visible. This moves the
+   * side panel's own scrollbar only — never the page — so it applies on desktop
+   * and tablets, where the list is capped and scrolls inside itself. From 767 px
+   * down the list flows with the page and this is a no-op (the effect below
+   * handles that case).
    */
   useEffect(() => {
     if (!selectedId) return;
     const panel = sideRegionRef.current;
     if (!panel || panel.scrollHeight <= panel.clientHeight) return;
     panel.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [selectedId]);
+
+  /**
+   * Phones only (same breakpoint as the CSS). There the side list flows with the
+   * page instead of scrolling inside its own box, so the card just lifted to the
+   * top of the list sits below the map and the reorder alone is invisible.
+   * Scrolling the top of the map to the top of the page brings the map back into
+   * view with the pinned card directly beneath it.
+   */
+  useEffect(() => {
+    if (!selectedId || !matchesPhoneLayout()) return;
+    const region = mapRegionRef.current;
+    if (!region) return;
+    const header = document.querySelector('.site-header');
+    const target = mapTopScrollTarget(
+      region.getBoundingClientRect().top,
+      window.scrollY,
+      header ? header.getBoundingClientRect().height : 0
+    );
+    if (target === null) return;
+    window.scrollTo({ top: target, behavior: 'smooth' });
   }, [selectedId]);
 
   const handleSubmit = (place: Place) => {
