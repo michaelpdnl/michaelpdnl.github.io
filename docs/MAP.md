@@ -150,10 +150,22 @@ private entry can never reach the public map.
   as inline SVG, so they need no image files and follow the pin's text colour in both
   themes. Icons are cached per (rating, glyph, selected) so re-renders never rebuild the
   marker DOM.
-- Side list of places, sorted by rating then name; selecting a list item focuses its
-  marker and vice versa. The **selected pin is highlighted** (scaled up 1.3× with an accent
-  halo ring and raised above the other pins via `zIndexOffset`) and the matching card is
-  highlighted, so list and map always agree on what is selected.
+- **Two-way selection:** clicking a pin selects (and expands) its card in the side list, and
+  selecting a card opens that place's popup on the map — `SyncSelection` keeps each marker
+  instance in a ref map and calls `openPopup()`. **Deselecting closes that popup** again (it
+  remembers the previous selection and calls `closePopup()` on it). The component only reacts
+  to *selection changes*, so closing a popup by hand does not make it spring back open. The
+  **selected pin is highlighted** (scaled up 1.3× with an accent halo ring, raised above the
+  other pins with `setZIndexOffset`) and the matching card is highlighted, so list and map
+  always agree on what is selected.
+- **Icons never change with selection.** The highlight is a CSS class
+  (`.map-marker--selected`) added to the marker's existing DOM element, not a different icon.
+  This matters: react-leaflet calls `marker.setIcon()` whenever the `icon` prop changes, and
+  Leaflet rebuilds the marker's element and re-binds its popup when it does — doing that
+  during the very click that opened a popup tore the popup down again, so pin clicks appeared
+  dead while list clicks (which open the popup *after* the rebuild) worked. Event handlers are
+  also kept stable per marker (`PlaceMarker` memoises them behind a ref) so listeners are
+  never detached and re-attached mid-interaction.
 - **No page scrolling on selection:** picking a pin (or a card) never scrolls the window —
   the page stays where you left it; only the map pans/zooms to show the pin. The list does
   not follow the selection either (`scrollIntoView` was deliberately removed).
@@ -203,13 +215,22 @@ automatically: the snapshot stays the single source of truth for visitors.
 - The side list is capped to the map's height (`--map-h`, shared by `.map-canvas` and
   `.map-layout__side`) and **scrolls internally** with a thin themed scrollbar
   (`overscroll-behavior: contain`), so adding places never stretches the page — the map and
-  list always form one self-contained block. In stacked (mobile) mode it caps to the same
-  shortened map height. The edit form lives inside that scroll area too.
+  list always form one self-contained block. On **phones (≤ 767 px)** that cap is removed:
+  the list flows with the page and has no scrollbar of its own. The edit form lives inside
+  the same area either way.
 - Keyboard/assistive tech: list items are focusable buttons exposing `aria-expanded`; the
   star input is a row of buttons using `aria-pressed`; map clicks land on the same
   selection state as the list; popups are dismissible with Escape (Leaflet default);
   pins carry stars/tags as text in their popup, and glyphs are decorative
   (`aria-hidden`).
+
+### Headless repro harness
+`frontend/repro/` renders the real `MapView` in jsdom behind a MapPage-equivalent wrapper
+and drives it with dispatched clicks (`node repro/run.mjs` from `frontend/`). It prints the
+resulting selection, popup count/contents, highlight class and event log — and asserts that
+a selection change does **not** replace the marker's DOM element. It caught the
+`setIcon`-rebuild bug described above, which no type-check or build could see. It uses the
+`jsdom` dev dependency and, having no layout, cannot detect purely visual problems.
 
 ## 7. Files
 

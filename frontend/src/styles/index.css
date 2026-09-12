@@ -1453,8 +1453,9 @@ button {
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-/* Highlighted pin — the place selected in the side list */
-.map-marker__pin--selected {
+/* Highlighted pin — the place selected in the side list. Driven by a class on
+   the marker element (not by swapping icons, which would rebuild the marker). */
+.map-marker--selected .map-marker__pin {
   transform: scale(1.3);
   border-color: var(--accent);
   box-shadow:
@@ -1736,6 +1737,15 @@ html[data-theme='dark'] .chip--private {
    visible "Min rating" caption moves to screen-reader-only to save width (the
    select keeps that text as its accessible label). */
 @media (max-width: 767px) {
+  /* Phones: the side list flows with the page instead of scrolling inside its own
+     box (no height cap, no scrollbar). */
+  .map-layout__side {
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding-right: 0;
+  }
+
   .map-filters {
     gap: 0.5rem;
   }

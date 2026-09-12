@@ -1,5 +1,6 @@
 import L from 'leaflet';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import type { MutableRefObject } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { PlaceIcon, pinIconKeyForTags, pinIconSvg } from '../../lib/placeIcons';
 import { stars, type Place } from '../../lib/places';
@@ -27,23 +28,25 @@ const FIT_PADDING: [number, number] = [48, 48];
  * Custom pin (no image assets needed): a coloured circle carrying the rating —
  * Every pin carries a glyph: the place's tag glyph, or the general map-marker
  * glyph when no tag matches. The pin colour still encodes the rating.
- * Icons are cached per (rating, glyph, selected) so re-renders reuse the same
- * instance and Leaflet does not rebuild the marker DOM.
+ *
+ * The icon is deliberately **independent of selection**: react-leaflet calls
+ * `marker.setIcon()` whenever the icon prop changes, and Leaflet replaces the
+ * marker's DOM element (and re-binds its popup) when it does. Doing that during
+ * the very click that opens a popup tears the popup down again, so the selected
+ * state is drawn with a CSS class on the existing element instead.
  */
 const iconCache = new Map<string, L.DivIcon>();
 
-function pinIcon(place: Place, selected: boolean): L.DivIcon {
+function pinIcon(place: Place): L.DivIcon {
   const iconKey = pinIconKeyForTags(place.tags);
-  const cacheKey = `${place.rating}|${iconKey}|${selected ? 'selected' : 'default'}`;
+  const cacheKey = `${place.rating}|${iconKey}`;
   const cached = iconCache.get(cacheKey);
   if (cached) return cached;
 
   const content = pinIconSvg(iconKey);
   const icon = L.divIcon({
     className: 'map-marker',
-    html: `<span class="map-marker__pin map-marker__pin--r${place.rating} map-marker__pin--icon${
-      selected ? ' map-marker__pin--selected' : ''
-    }">${content}</span>`,
+    html: `<span class="map-marker__pin map-marker__pin--r${place.rating} map-marker__pin--icon">${content}</span>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -16],
@@ -149,6 +152,92 @@ function FocusSelected({ place }: { place: Place | null }) {
   return null;
 }
 
+/**
+ * Keeps the map in step with the side list's selection, without ever touching
+ * the marker icons:
+ * - selecting a place adds `.map-marker--selected` to its element (the highlight)
+ *   and raises it with `setZIndexOffset`;
+ * - selecting a place opens its popup (same as clicking the pin);
+ * - deselecting closes the popup and clears the highlight.
+ * It reacts only to *selection changes*, so closing a popup by hand does not make
+ * it spring back open.
+ */
+function SyncSelection({
+  selectedId,
+  markers,
+}: {
+  selectedId: string | null;
+  markers: MutableRefObject<Map<string, L.Marker>>;
+}) {
+  const previousId = useRef<string | null>(null);
+
+  useEffect(() => {
+    const previous = previousId.current;
+    previousId.current = selectedId;
+
+    if (previous && previous !== selectedId) {
+      const cleared = markers.current.get(previous);
+      cleared?.getElement()?.classList.remove('map-marker--selected');
+      cleared?.setZIndexOffset(0);
+    }
+
+    if (selectedId) {
+      const marker = markers.current.get(selectedId);
+      if (!marker) return;
+      marker.getElement()?.classList.add('map-marker--selected');
+      marker.setZIndexOffset(1000);
+      if (!marker.isPopupOpen()) marker.openPopup();
+      return;
+    }
+
+    // Selection cleared: close the popup that was open for it.
+    if (previous) markers.current.get(previous)?.closePopup();
+  }, [selectedId, markers]);
+
+  return null;
+}
+
+/** One pin, with a stable icon and stable event handlers across re-renders. */
+function PlaceMarker({
+  place,
+  onSelect,
+  registerMarker,
+}: {
+  place: Place;
+  onSelect: (id: string) => void;
+  registerMarker: (id: string, marker: L.Marker | null) => void;
+}) {
+  // Keep the latest callback without changing the handler identity, so
+  // react-leaflet never has to detach/re-attach listeners mid-interaction.
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+
+  const handlers = useMemo(
+    () => ({ click: () => onSelectRef.current(place.id) }),
+    [place.id]
+  );
+  const setRef = useCallback(
+    (instance: L.Marker | null) => registerMarker(place.id, instance),
+    [place.id, registerMarker]
+  );
+
+  return (
+    <Marker ref={setRef} position={[place.lat, place.lng]} icon={pinIcon(place)} eventHandlers={handlers}>
+      <Popup>
+        <strong className="map-popup__name">
+          <PlaceIcon tags={place.tags} />
+          {place.name}
+        </strong>
+        <div className="map-popup__stars" aria-label={`${place.rating}/5`}>
+          {stars(place.rating)}
+        </div>
+        {place.tags.length > 0 && <div className="map-popup__tags">{place.tags.join(' · ')}</div>}
+        {place.notes && <p className="map-popup__notes">{excerpt(place.notes)}</p>}
+      </Popup>
+    </Marker>
+  );
+}
+
 interface MapViewProps {
   places: Place[];
   selectedId: string | null;
@@ -159,6 +248,11 @@ interface MapViewProps {
 
 export function MapView({ places, selectedId, onSelect, editMode, onMapClick }: MapViewProps) {
   const selected = places.find((place) => place.id === selectedId) ?? null;
+  const markerRefs = useRef(new Map<string, L.Marker>());
+  const registerMarker = useCallback((id: string, marker: L.Marker | null) => {
+    if (marker) markerRefs.current.set(id, marker);
+    else markerRefs.current.delete(id);
+  }, []);
 
   return (
     <MapContainer
@@ -172,34 +266,14 @@ export function MapView({ places, selectedId, onSelect, editMode, onMapClick }: 
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {places.map((place) => {
-        const isSelected = place.id === selectedId;
-        return (
-          <Marker
-            key={place.id}
-            position={[place.lat, place.lng]}
-            icon={pinIcon(place, isSelected)}
-            zIndexOffset={isSelected ? 1000 : 0}
-            eventHandlers={{ click: () => onSelect(place.id) }}
-          >
-            <Popup>
-              <strong className="map-popup__name">
-                <PlaceIcon tags={place.tags} />
-                {place.name}
-              </strong>
-              <div className="map-popup__stars" aria-label={`${place.rating}/5`}>
-                {stars(place.rating)}
-              </div>
-              {place.tags.length > 0 && <div className="map-popup__tags">{place.tags.join(' · ')}</div>}
-              {place.notes && <p className="map-popup__notes">{excerpt(place.notes)}</p>}
-            </Popup>
-          </Marker>
-        );
-      })}
+      {places.map((place) => (
+        <PlaceMarker key={place.id} place={place} onSelect={onSelect} registerMarker={registerMarker} />
+      ))}
 
       <FitToVisible places={places} />
       <ClickCatcher onMapClick={onMapClick} />
       <FocusSelected place={selected} />
+      <SyncSelection selectedId={selectedId} markers={markerRefs} />
     </MapContainer>
   );
 }
