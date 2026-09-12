@@ -7,8 +7,10 @@ React + Vite site hosted for free on GitHub Pages. The UI is bilingual
 > **Status:** content is published from `main`; GitHub Actions builds and
 > deploys automatically. 
 
-Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
+Docs live in [`docs/`](docs/) — **start with the handoff if you are picking this up fresh**:
 
+- [`docs/HANDOFF.md`](docs/HANDOFF.md) — current state, environment quirks, verify recipes, open issues
+- [`docs/MAP.md`](docs/MAP.md) — the places map app (`/map`): design, behaviour, publishing
 - [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — what the site must do
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how it is built
 - [`docs/AUTHORING.md`](docs/AUTHORING.md) — how to add content & publish
@@ -22,7 +24,11 @@ Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
   description, tech/tags, demo/source links and a **screenshot carousel**
   (arrows, dots, swipe) driven by each project's `screenshots:` list.
 - **Blog** — post list (newest first) → article pages with rendered Markdown,
-  dates and tags.
+  dates and tags. Posts with `featured: true` are pinned to the top.
+- **Map** (`/map`, URL-only for now) — a Leaflet map of places with rating, tags, notes and
+  photos. Visitors see a read-only snapshot committed at `content/map/places.json`; the owner
+  edits a local copy in the browser and publishes by committing a snapshot. See
+  [`docs/MAP.md`](docs/MAP.md).
 - **Navigation** — desktop: "My Projects" opens/closes a dropdown listing every project
   (each linking to its detail page, plus "All projects" → `/projects`); the active route
   is highlighted. Mobile (< 768 px): hamburger → full-height drawer; "My Projects"
@@ -40,10 +46,12 @@ Docs (requirements, architecture, authoring) live in [`docs/`](docs/):
 │   ├── profile/                site.en.md · photo.jpg · cv.pdf
 │   ├── projects/en|zh/         project Markdown (<slug>.md per locale)
 │   ├── posts/en|zh/            blog post Markdown (<slug>.md per locale)
+│   ├── map/places.json         published snapshot for /map
 │   └── assets/                 images, served at /assets/...
 ├── frontend/                   React + Vite + TypeScript SPA
+├── scripts/                    one-off generators (e.g. the HK cover art)
 ├── .github/workflows/deploy.yml  push to main → build → GitHub Pages
-└── docs/                       requirements & guides
+└── docs/                       requirements, architecture, authoring, map, handoff
 ```
 
 **Rule of thumb:** everyday publishing only touches `content/`. Adding a
