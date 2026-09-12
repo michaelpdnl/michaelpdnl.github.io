@@ -224,14 +224,6 @@ automatically: the snapshot stays the single source of truth for visitors.
   pins carry stars/tags as text in their popup, and glyphs are decorative
   (`aria-hidden`).
 
-### Headless repro harness
-`frontend/repro/` renders the real `MapView` in jsdom behind a MapPage-equivalent wrapper
-and drives it with dispatched clicks (`node repro/run.mjs` from `frontend/`). It prints the
-resulting selection, popup count/contents, highlight class and event log — and asserts that
-a selection change does **not** replace the marker's DOM element. It caught the
-`setIcon`-rebuild bug described above, which no type-check or build could see. It uses the
-`jsdom` dev dependency and, having no layout, cannot detect purely visual problems.
-
 ## 7. Files
 
 ```
