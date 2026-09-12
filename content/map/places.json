@@ -11,7 +11,7 @@
         "eatery"
       ],
       "notes": "The taste and range of choices are satisfactory, but the kiosk is always facing long queues in dining hours. Also it closes before 10 pm so it's not possible to grab night treats after class.",
-      "photos": [],
+      "photos": ["/assets/map/cym.jpg"],
       "private": false,
       "visitedAt": "2026-08-30"
     },
@@ -25,7 +25,7 @@
         "eatery"
       ],
       "notes": "Affordable. Good for an informal meal.",
-      "photos": [],
+      "photos": ["/assets/map/sai.jpg"],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -67,7 +67,7 @@
         "scenery"
       ],
       "notes": "Amazing view of the sea, the mountains, and the city sprawling the hills. Good for a jog or a walk.",
-      "photos": [],
+      "photos": ["/assets/map/praya.jpg"],
       "private": false,
       "visitedAt": "2026-09-05"
     },
@@ -95,7 +95,7 @@
         "study"
       ],
       "notes": "Great view of the city and sea below. Seats are not hard to find, though some seats are insufficiently lighted. Have 24h study area.",
-      "photos": [],
+      "photos": ["/assets/map/sassoon.jpg"],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -137,7 +137,7 @@
         "eatery"
       ],
       "notes": "Worth the price.",
-      "photos": [],
+      "photos": ["/assets/map/tak.jpg"],
       "private": false,
       "visitedAt": "2026-08-29"
     },
@@ -151,7 +151,7 @@
         "study"
       ],
       "notes": "Seats are hard to find if you don't come early. Lots of seats don't have sockets. The ventilation is not good, so it always feel a little dizzy there. Only good for lucubrating.",
-      "photos": [],
+      "photos": ["/assets/map/chiwah.jpg"],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -165,7 +165,7 @@
         "eatery"
       ],
       "notes": "Affordable and the food is tasty. However, indoor seats are limited and always full during normal dining hours. Anyone knows why there're always sparrows flying around in this canteen?",
-      "photos": [],
+      "photos": ["/assets/map/su.jpg"],
       "private": false,
       "visitedAt": "2026-08-29"
     },
@@ -179,7 +179,7 @@
         "scenery"
       ],
       "notes": "Splendid view. An urban escape. Infrastructure are new and so are the buildings. Also the home of HKU Business School.",
-      "photos": [],
+      "photos": ["/assets/map/cyberport.jpg"],
       "private": false,
       "visitedAt": "2026-09-08"
     },
