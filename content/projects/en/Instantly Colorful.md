@@ -1,7 +1,7 @@
 ---
 title: "Instantly Colorful"
 cover: "/assets/projects/Instantly Colorful/metro.jpg"
-summary: "A street photography project to capture the romance and vitality of Shanghai"
+summary: "Capturing the romance and vitality of Shanghai in photos"
 tech: [Street photography, art]
 # links:
 #   demo: https://example.com/wglass
@@ -23,7 +23,7 @@ screenshots:
   - /assets/projects/Instantly Colorful/12.jpg
 ---
 
-Sometimes I dream of squandering my life wandering the streets. Sometimes I walk among the pedestrians and wonder what’s on their minds. Sometimes I’d hop on a random bus and ride till the terminal. And when the night falls, I return. The lights from the traffic renders the bokeh instantly colorful.
+Capturing the romance and vitality of Shanghai in photos. 
 
 
 <!-- Weather Glass is a small experiment in building a pretty UI around a boring
