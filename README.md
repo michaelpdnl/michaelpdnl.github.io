@@ -7,9 +7,8 @@ React + Vite site hosted for free on GitHub Pages. The UI is bilingual
 > **Status:** content is published from `main`; GitHub Actions builds and
 > deploys automatically. 
 
-Docs live in [`docs/`](docs/) — **start with the handoff if you are picking this up fresh**:
+Docs live in [`docs/`](docs/):
 
-- [`docs/HANDOFF.md`](docs/HANDOFF.md) — current state, environment quirks, verify recipes, open issues
 - [`docs/MAP.md`](docs/MAP.md) — the places map app (`/map`): design, behaviour, publishing
 - [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — what the site must do
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how it is built
@@ -51,7 +50,7 @@ Docs live in [`docs/`](docs/) — **start with the handoff if you are picking th
 ├── frontend/                   React + Vite + TypeScript SPA
 ├── scripts/                    one-off generators (e.g. the HK cover art)
 ├── .github/workflows/deploy.yml  push to main → build → GitHub Pages
-└── docs/                       requirements, architecture, authoring, map, handoff
+└── docs/                       requirements, architecture, authoring, map
 ```
 
 **Rule of thumb:** everyday publishing only touches `content/`. Adding a
