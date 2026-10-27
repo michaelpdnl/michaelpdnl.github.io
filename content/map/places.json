@@ -11,7 +11,9 @@
         "eatery"
       ],
       "notes": "The taste and range of choices are satisfactory, but the kiosk is always facing long queues in dining hours. Also it closes before 10 pm so it's not possible to grab night treats after class.",
-      "photos": ["/assets/map/cym.jpg"],
+      "photos": [
+        "/assets/map/cym.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-08-30"
     },
@@ -25,7 +27,9 @@
         "eatery"
       ],
       "notes": "Affordable. Good for an informal meal.",
-      "photos": ["/assets/map/sai.jpg"],
+      "photos": [
+        "/assets/map/sai.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -67,7 +71,9 @@
         "scenery"
       ],
       "notes": "Amazing view of the sea, the mountains, and the city sprawling the hills. Good for a jog or a walk.",
-      "photos": ["/assets/map/praya.jpg"],
+      "photos": [
+        "/assets/map/praya.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-09-05"
     },
@@ -86,6 +92,20 @@
       "visitedAt": "2026-09-08"
     },
     {
+      "id": "3bfb46fe",
+      "name": "HKU Business School",
+      "lat": 22.259399904255453,
+      "lng": 114.13055509328844,
+      "rating": 4,
+      "tags": [
+        "study"
+      ],
+      "notes": "Good facilities, but not open to non-business school students and staff...",
+      "photos": [],
+      "private": false,
+      "visitedAt": "2026-09-08"
+    },
+    {
       "id": "5266b964",
       "name": "HKU Yu Chun Keung Medical Library",
       "lat": 22.267170823509595,
@@ -95,7 +115,9 @@
         "study"
       ],
       "notes": "Great view of the city and sea below. Seats are not hard to find, though some seats are insufficiently lighted. Have 24h study area.",
-      "photos": ["/assets/map/sassoon.jpg"],
+      "photos": [
+        "/assets/map/sassoon.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -137,7 +159,9 @@
         "eatery"
       ],
       "notes": "Worth the price.",
-      "photos": ["/assets/map/tak.jpg"],
+      "photos": [
+        "/assets/map/tak.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-08-29"
     },
@@ -151,7 +175,9 @@
         "study"
       ],
       "notes": "Seats are hard to find if you don't come early. Lots of seats don't have sockets. The ventilation is not good, so it always feel a little dizzy there. Only good for lucubrating.",
-      "photos": ["/assets/map/chiwah.jpg"],
+      "photos": [
+        "/assets/map/chiwah.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-09-08"
     },
@@ -165,37 +191,44 @@
         "eatery"
       ],
       "notes": "Affordable and the food is tasty. However, indoor seats are limited and always full during normal dining hours. Anyone knows why there're always sparrows flying around in this canteen?",
-      "photos": ["/assets/map/su.jpg"],
+      "photos": [
+        "/assets/map/su.jpg"
+      ],
       "private": false,
       "visitedAt": "2026-08-29"
     },
     {
-      "id": "e7d918a3",
-      "name": "Cyberport seaside",
-      "lat": 22.25760428109074,
-      "lng": 114.1307294368744,
+      "id": "a2bf5c26",
+      "name": "Cheung Chau",
+      "lat": 22.20887465990762,
+      "lng": 114.02941703796388,
       "rating": 5,
       "tags": [
         "scenery"
       ],
-      "notes": "Splendid view. An urban escape. Infrastructure are new and so are the buildings. Also the home of HKU Business School.",
-      "photos": ["/assets/map/cyberport.jpg"],
+      "notes": "A lovely island and an ideal place to live in Hong Kong. Away from the hustle and bustle but still easily connected to city center by ferries.",
+      "photos": [
+        "/assets/map/cc0.jpg",
+        "/assets/map/cc1.jpg"
+      ],
       "private": false,
-      "visitedAt": "2026-09-08"
+      "visitedAt": "2026-10-03"
     },
     {
-      "id": "3bfb46fe",
-      "name": "HKU Business School",
-      "lat": 22.259399904255453,
-      "lng": 114.13055509328844,
+      "id": "bb28c6fb",
+      "name": "Kuk Po",
+      "lat": 22.529623196230894,
+      "lng": 114.23214912414552,
       "rating": 4,
       "tags": [
-        "study"
+        "scenery"
       ],
-      "notes": "Good facilities, but not open to non-business school students and staff...",
-      "photos": [],
+      "notes": "A village not even connected by road. Can only go there by boat. Shenzhen is on the other side of the sea and very close.",
+      "photos": [
+        "/assets/map/kp.jpg"
+      ],
       "private": false,
-      "visitedAt": "2026-09-08"
+      "visitedAt": "2026-09-18"
     },
     {
       "id": "c2e7b380",
@@ -210,6 +243,22 @@
       "photos": [],
       "private": false,
       "visitedAt": "2026-08-29"
+    },
+    {
+      "id": "e7d918a3",
+      "name": "Cyberport seaside",
+      "lat": 22.25760428109074,
+      "lng": 114.1307294368744,
+      "rating": 5,
+      "tags": [
+        "scenery"
+      ],
+      "notes": "Splendid view. An urban escape. Infrastructure are new and so are the buildings. Also the home of HKU Business School.",
+      "photos": [
+        "/assets/map/cyberport.jpg"
+      ],
+      "private": false,
+      "visitedAt": "2026-09-08"
     }
   ]
 }
