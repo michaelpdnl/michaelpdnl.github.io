@@ -63,7 +63,7 @@ shown.
 ```bash
 cd frontend
 npm install
-npm run dev        # http://localhost:5173 — content edits hot-reload
+npm run dev        # http://localhost:5173 — content edits hot-reload live
 ```
 
 Other scripts:
@@ -74,8 +74,10 @@ npm run build      # type-check + production build into frontend/dist/
 npm run preview    # serve the production build locally
 ```
 
-> Dev caveat: after adding a *brand-new* Markdown file, restart `npm run dev`
-> once (production builds and CI always pick new files up).
+> Dev workflow: edits to existing Markdown update in place, and adding or
+> deleting a file reloads the page automatically (see `contentFileWatcher` in
+> `frontend/vite.config.ts`) — no restart needed. `npm run build` is only for
+> producing the static `dist/` that gets published.
 
 ## How publishing works
 

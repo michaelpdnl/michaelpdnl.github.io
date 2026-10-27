@@ -6,8 +6,9 @@ import type { Lang, Post, ProfileData, Project, SiteContent } from './types';
 // Markdown file below content/ at build/dev time via ?raw — no network calls,
 // no CORS, deep links just work.
 //
-// Note: dev hot-reloads edits to known files. After adding a *brand-new* file,
-// restart `npm run dev` once (prod builds always pick it up).
+// Note: dev picks up new, edited and deleted files automatically — the
+// contentFileWatcher in vite.config.ts invalidates this module when a file is
+// added or removed. Production builds always read the whole folder.
 const modules = import.meta.glob('../../../content/**/*.md', {
   query: '?raw',
   import: 'default',
